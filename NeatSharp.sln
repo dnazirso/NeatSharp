@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Genetic", "Genetic\Genetic.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NeuroEvolution", "NeuroEvolution\NeuroEvolution.csproj", "{D5D57608-2400-4F26-83C3-A7DA0811BDC5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prompt", "Prompt\Prompt.csproj", "{FB7F29F7-BB21-4768-AD3A-B812F547BC3B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prompt", "Prompt\Prompt.csproj", "{FB7F29F7-BB21-4768-AD3A-B812F547BC3B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

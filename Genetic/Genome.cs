@@ -1,7 +1,9 @@
 ﻿using DataStructures;
+using DataStructures.Calculation;
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using System;
+using System.Collections.Generic;
 
 namespace Genetic
 {
@@ -10,6 +12,8 @@ namespace Genetic
         public RandomHashSet<ConnectionGene> Connections { get; }
         public RandomHashSet<NodeGene> Nodes { get; }
         public INeat Neat { get; }
+        public int MyProperty { get; set; }
+        public Calculator Calculator { get; set; }
 
         public Genome(INeat Neat)
         {
@@ -19,12 +23,36 @@ namespace Genetic
             this.Neat = Neat;
         }
 
+        public void GenerateCalculator()
+        {
+            Calculator = new Calculator(this);
+        }
+
+        public IList<double> Calculate(IList<double> input)
+        {
+            if (Calculator != null)
+            {
+                return Calculator.Calculate(input);
+            }
+
+            return null;
+        }
+
         public double Distance(IGenome genome2)
         {
             IGenome genome1 = this;
 
-            int highestInnovationNb1 = genome1.Connections.Get(genome1.Connections.Size() - 1).InnovationNumber;
-            int highestInnovationNb2 = genome2.Connections.Get(genome2.Connections.Size() - 1).InnovationNumber;
+            int highestInnovationNb1 = 0;
+            int highestInnovationNb2 = 0;
+
+            if (genome1.Connections.Size() > 0)
+            {
+                highestInnovationNb1 = genome1.Connections.Get(genome1.Connections.Size() - 1).InnovationNumber;
+            }
+            if (genome2.Connections.Size() > 0)
+            {
+                highestInnovationNb2 = genome2.Connections.Get(genome1.Connections.Size() - 1).InnovationNumber;
+            }
 
             if (highestInnovationNb1 < highestInnovationNb2)
             {
@@ -192,6 +220,9 @@ namespace Genetic
 
                 ConnectionGene connection1 = Neat.GetConnection(From, middle);
                 ConnectionGene connection2 = Neat.GetConnection(middle, To);
+
+                connection1.Weight = 1;
+                connection2.Weight = connection.Weight;
 
                 Connections.Remove(connection);
                 Connections.Add(connection1);

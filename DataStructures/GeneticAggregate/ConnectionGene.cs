@@ -31,6 +31,7 @@
         public static ConnectionGene GetConnection(ConnectionGene connection)
         {
             ConnectionGene gene = new ConnectionGene(connection.From, connection.To);
+            gene.InnovationNumber = connection.InnovationNumber;
             gene.Weight = connection.Weight;
             gene.Enabled = connection.Enabled;
             return gene;

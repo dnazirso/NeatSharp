@@ -11,23 +11,20 @@ namespace NeuroEvolution
     {
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
         private RandomHashSet<NodeGene> AllNodes { get; set; }
-        public int InputSize { get; set; }
-        public int OutputSize { get; set; }
-        public int MaxClients { get; set; }
 
         public Neat(int InputSize, int OutputSize, int MaxClients)
         {
             AllConnections = new Dictionary<ConnectionGene, ConnectionGene>();
             AllNodes = new RandomHashSet<NodeGene>();
 
-            Reset(InputSize, OutputSize, MaxClients);
+            Reset();
         }
 
         public IGenome EmptyGenome()
         {
             IGenome g = new Genome(this);
 
-            for (int i = 0; i < InputSize + OutputSize; i++)
+            for (int i = 0; i < Constants.InputSize + Constants.OutputSize; i++)
             {
                 g.Nodes.Add(GetNode(i + 1));
             }
@@ -35,27 +32,23 @@ namespace NeuroEvolution
             return g;
         }
 
-        private void Reset(int inputSize, int outputSize, int maxClients)
+        private void Reset()
         {
-            InputSize = inputSize;
-            OutputSize = outputSize;
-            MaxClients = maxClients;
-
             AllConnections.Clear();
             AllNodes.Clear();
 
-            for (int i = 0; i < inputSize; i++)
+            for (int i = 0; i < Constants.InputSize; i++)
             {
                 NodeGene node = CreateNode();
                 node.X = 0.1; ;
-                node.Y = (i + 1) / (double)(inputSize + 1);
+                node.Y = (i + 1) / (double)(Constants.InputSize + 1);
             }
 
-            for (int i = 0; i < outputSize; i++)
+            for (int i = 0; i < Constants.OutputSize; i++)
             {
                 NodeGene node = CreateNode();
                 node.X = 0.9; ;
-                node.Y = (i + 1) / (double)(outputSize + 1);
+                node.Y = (i + 1) / (double)(Constants.OutputSize + 1);
             }
         }
 

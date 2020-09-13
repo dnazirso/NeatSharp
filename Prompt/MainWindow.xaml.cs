@@ -20,7 +20,7 @@ namespace Prompt
         {
             InitializeComponent();
 
-            neat = new Neat(3, 3, 100);
+            neat = new Neat(3, 2, 0);
             genome = neat.EmptyGenome();
             buttonStack = new ButtonStack(genome, this);
 
