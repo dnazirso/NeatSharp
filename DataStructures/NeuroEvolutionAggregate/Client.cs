@@ -8,7 +8,7 @@ namespace DataStructures.NeuroEvolutionAggregate
     {
         public IGenome Genome { get; set; }
         public double Score { get; set; }
-        public Spicies Spicies { get; set; }
+        public Species Species { get; set; }
         public Calculator Calculator { get; set; }
 
         public void GenerateCalculator()

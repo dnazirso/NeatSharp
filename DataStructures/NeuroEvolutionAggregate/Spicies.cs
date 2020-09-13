@@ -2,16 +2,16 @@
 
 namespace DataStructures.NeuroEvolutionAggregate
 {
-    public class Spicies
+    public class Species
     {
         public RandomHashSet<Client> Clients { get; }
         public Client Representative { get; private set; }
         public double Score { get; private set; }
 
-        public Spicies(Client Representative)
+        public Species(Client Representative)
         {
             this.Representative = Representative;
-            this.Representative.Spicies = this;
+            this.Representative.Species = this;
             Clients.Add(Representative);
         }
 
@@ -19,7 +19,7 @@ namespace DataStructures.NeuroEvolutionAggregate
         {
             if (client.Distance(Representative) < Constants.CP)
             {
-                client.Spicies = this;
+                client.Species = this;
                 Clients.Add(Representative);
                 return true;
             }
@@ -28,7 +28,7 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void ForcePut(Client client)
         {
-            client.Spicies = this;
+            client.Species = this;
             Clients.Add(Representative);
         }
 
@@ -36,7 +36,7 @@ namespace DataStructures.NeuroEvolutionAggregate
         {
             foreach (Client c in Clients.Data)
             {
-                c.Spicies = null;
+                c.Species = null;
             }
         }
 
@@ -55,12 +55,12 @@ namespace DataStructures.NeuroEvolutionAggregate
             Representative = Clients.RandomElement();
             foreach (Client c in Clients.Data)
             {
-                c.Spicies = null;
+                c.Species = null;
             }
             Clients.Clear();
 
             Clients.Add(Representative); ;
-            Representative.Spicies = this;
+            Representative.Species = this;
             Score = 0;
         }
 
@@ -70,7 +70,7 @@ namespace DataStructures.NeuroEvolutionAggregate
 
             for (int i = 0; i < percentage * Clients.Size(); i++)
             {
-                Clients.Get(0).Spicies = null;
+                Clients.Get(0).Species = null;
             }
         }
 
