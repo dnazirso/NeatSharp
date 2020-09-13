@@ -8,7 +8,7 @@ namespace DataStructures.GeneticAggregate
         public NodeGene To { get; set; }
 
         public double Weight { get; set; }
-        public bool Enabled { get; set; }
+        public bool Enabled { get; set; } = true;
         public INeat Neat { get; set; }
 
         public ConnectionGene(NodeGene From, NodeGene To)
