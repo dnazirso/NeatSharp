@@ -48,13 +48,13 @@ namespace Prompt.Menu
 
         private void Calculate(object sender, RoutedEventArgs e)
         {
-            genome.GenerateCalculator();
+            //genome.GenerateCalculator();
 
-            double[] d = genome.Calculate(new double[] { 1, 1, 1 }).ToArray();
+            //double[] d = genome.Calculate(new double[] { 1, 1, 1 }).ToArray();
 
-            TraceCalculation(d);
+            //TraceCalculation(d);
 
-            main.PlaceGenes();
+            //main.PlaceGenes();
         }
 
         private void Mutate(object sender, RoutedEventArgs e)

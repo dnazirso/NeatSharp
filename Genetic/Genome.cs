@@ -1,9 +1,7 @@
 ﻿using DataStructures;
-using DataStructures.Calculation;
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using System;
-using System.Collections.Generic;
 
 namespace Genetic
 {
@@ -12,8 +10,6 @@ namespace Genetic
         public RandomHashSet<ConnectionGene> Connections { get; }
         public RandomHashSet<NodeGene> Nodes { get; }
         public INeat Neat { get; }
-        public int MyProperty { get; set; }
-        public Calculator Calculator { get; set; }
 
         public Genome(INeat Neat)
         {
@@ -21,21 +17,6 @@ namespace Genetic
             Nodes = new RandomHashSet<NodeGene>();
 
             this.Neat = Neat;
-        }
-
-        public void GenerateCalculator()
-        {
-            Calculator = new Calculator(this);
-        }
-
-        public IList<double> Calculate(IList<double> input)
-        {
-            if (Calculator != null)
-            {
-                return Calculator.Calculate(input);
-            }
-
-            return null;
         }
 
         public double Distance(IGenome genome2)
@@ -100,65 +81,6 @@ namespace Genetic
             int nbExcess = genome1.Connections.Size() - i1;
 
             return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint) / nbGeneInTheLargerGenome) + (Constants.C3 * weightDifference / nbMatching);
-        }
-
-        public static IGenome CrossOver(IGenome parent1, IGenome parent2)
-        {
-            INeat neat = parent1.Neat;
-            IGenome offSpringGenome = neat.EmptyGenome();
-
-            int i1 = 0;
-            int i2 = 0;
-
-            while (i1 < parent1.Connections.Size() && i2 < parent2.Connections.Size())
-            {
-                ConnectionGene gene1 = parent1.Connections.Get(i1);
-                ConnectionGene gene2 = parent2.Connections.Get(i2);
-
-                // matching gene case
-                if (gene1.InnovationNumber == gene2.InnovationNumber)
-                {
-                    if (ThreadSafeRandom.Random() > 0)
-                    {
-                        offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene1));
-                    }
-                    else
-                    {
-                        offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene2));
-                    }
-
-                    i1++;
-                    i2++;
-                }
-
-                // disjoint gene case
-                if (i1 > i2)
-                {
-                    offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene2));
-                    i2++;
-                }
-                else
-                {
-                    offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene1));
-                    i1++;
-                }
-            }
-
-            // ??? travail déjà fait au dessus
-            while (i1 < parent1.Connections.Size())
-            {
-                ConnectionGene gene1 = parent1.Connections.Get(i1);
-                offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene1));
-                i1++;
-            }
-
-            foreach (ConnectionGene c in offSpringGenome.Connections.Data)
-            {
-                offSpringGenome.Nodes.Add(c.From);
-                offSpringGenome.Nodes.Add(c.To);
-            }
-
-            return offSpringGenome;
         }
 
         public void Mutate()
