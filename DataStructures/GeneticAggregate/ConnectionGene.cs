@@ -1,6 +1,4 @@
-﻿using DataStructures.NeuroEvolutionAggregate;
-
-namespace DataStructures.GeneticAggregate
+﻿namespace DataStructures.GeneticAggregate
 {
     public class ConnectionGene : Gene
     {
@@ -9,7 +7,6 @@ namespace DataStructures.GeneticAggregate
 
         public double Weight { get; set; }
         public bool Enabled { get; set; } = true;
-        public INeat Neat { get; set; }
 
         public ConnectionGene(NodeGene From, NodeGene To)
         {
