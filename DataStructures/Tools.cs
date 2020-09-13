@@ -22,7 +22,7 @@ namespace DataStructures
         {
             get
             {
-                return Local ?? (Local = new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId)));
+                return Local ??= new Random(unchecked(Environment.TickCount * 31 + Thread.CurrentThread.ManagedThreadId));
             }
         }
 
@@ -40,6 +40,10 @@ namespace DataStructures
             return mean + scale * MathF.Sqrt(-2.0f * MathF.Log(random1)) * MathF.Sin(2.0f * MathF.PI * random2);
         }
 
+        /// <summary>
+        /// Creates a Random double under an equi-distribution probability as P(x)=1/sum(x), x=[0,1]
+        /// </summary>
+        /// <returns>a random double between 0 and 1</returns>
         public static double Random()
         {
             return ThisThreadsRandom.NextDouble();

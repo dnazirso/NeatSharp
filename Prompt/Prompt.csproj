@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataStructures\DataStructures.csproj" />
+    <ProjectReference Include="..\Genetic\Genetic.csproj" />
     <ProjectReference Include="..\NeuroEvolution\NeuroEvolution.csproj" />
   </ItemGroup>
 

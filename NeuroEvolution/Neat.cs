@@ -2,7 +2,6 @@
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using Genetic;
-using System;
 using System.Collections.Generic;
 
 namespace NeuroEvolution
@@ -12,7 +11,7 @@ namespace NeuroEvolution
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
         private RandomHashSet<NodeGene> AllNodes { get; set; }
 
-        public Neat(int InputSize, int OutputSize, int MaxClients)
+        public Neat()
         {
             AllConnections = new Dictionary<ConnectionGene, ConnectionGene>();
             AllNodes = new RandomHashSet<NodeGene>();
@@ -26,7 +25,7 @@ namespace NeuroEvolution
 
             for (int i = 0; i < Constants.InputSize + Constants.OutputSize; i++)
             {
-                g.Nodes.Add(GetNode(i + 1));
+                g.Nodes.Add(GetNode(i));
             }
 
             return g;
@@ -78,21 +77,12 @@ namespace NeuroEvolution
 
         public NodeGene GetNode(int id)
         {
-            if (id <= AllNodes.Size())
+            if (id + 1 <= AllNodes.Size())
             {
-                return AllNodes.Get(id - 1); // -1 ???
+                return AllNodes.Get(id);
             }
 
             return CreateNode();
-        }
-
-        public static void Main(string[] args)
-        {
-            Neat neat = new Neat(3, 3, 100);
-
-            IGenome g = neat.EmptyGenome();
-
-            Console.WriteLine(g.Nodes.Size());
         }
     }
 }

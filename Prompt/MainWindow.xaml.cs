@@ -11,18 +11,16 @@ namespace Prompt
     /// </summary>
     public partial class MainWindow : Window
     {
-
-        Neat neat;
         IGenome genome;
-        ButtonStack buttonStack;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            neat = new Neat(3, 2, 0);
+            Neat neat = new Neat();
             genome = neat.EmptyGenome();
-            buttonStack = new ButtonStack(genome, this);
+
+            ButtonStack buttonStack = new ButtonStack(genome, this);
 
             mainWindow.Children.Add(buttonStack);
             PlaceGenes();
