@@ -8,6 +8,8 @@
         public double Weight { get; set; }
         public bool Enabled { get; set; } = true;
 
+        public int ReplaceIndex { get; set; }
+
         public ConnectionGene(NodeGene From, NodeGene To)
         {
             this.From = From;

@@ -86,6 +86,19 @@ namespace NeuroEvolution
             return connection;
         }
 
+        public void SetReplaceIndex(NodeGene node1, NodeGene node2, int index)
+        {
+            AllConnections[new ConnectionGene(node1, node2)].ReplaceIndex = index;
+        }
+
+        public int GetReplaceIndex(NodeGene node1, NodeGene node2)
+        {
+            ConnectionGene connection = new ConnectionGene(node1, node2);
+            ConnectionGene data = AllConnections[connection];
+            if (data == null) return 0;
+            return data.ReplaceIndex;
+        }
+
         public NodeGene CreateNode()
         {
             NodeGene node = new NodeGene(AllNodes.Size() + 1);

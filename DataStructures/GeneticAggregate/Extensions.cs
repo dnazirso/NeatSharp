@@ -31,8 +31,7 @@ namespace DataStructures.GeneticAggregate
                     i1++;
                     i2++;
                 }
-
-                if (gene1.InnovationNumber > gene2.InnovationNumber)
+                else if (gene1.InnovationNumber > gene2.InnovationNumber)
                 {
                     offSpringGenome.Connections.Add(ConnectionGene.GetConnection(gene2));
                     i2++;

@@ -63,8 +63,7 @@ namespace Genetic
                     i1++;
                     i2++;
                 }
-
-                if (gene1.InnovationNumber > gene2.InnovationNumber)
+                else if (gene1.InnovationNumber > gene2.InnovationNumber)
                 {
                     nbDisjoint++;
                     i2++;
@@ -133,28 +132,38 @@ namespace Genetic
         public void MutateNode()
         {
             ConnectionGene connection = Connections.RandomElement();
-            if (connection != null)
+            if (connection == null) return;
+
+            NodeGene from = connection.From;
+            NodeGene to = connection.To;
+
+            int replaceIndex = Neat.GetReplaceIndex(from, to);
+
+            NodeGene middle;
+            if (replaceIndex == 0)
             {
-                NodeGene From = connection.From;
-                NodeGene To = connection.To;
-
-                NodeGene middle = Neat.CreateNode();
-                middle.X = (From.X + To.X) / 2;
-                middle.Y = ((From.Y + To.Y) / 2) + ThreadSafeRandom.NormalRand(0, 0.02f);
-
-                ConnectionGene connection1 = Neat.GetConnection(From, middle);
-                ConnectionGene connection2 = Neat.GetConnection(middle, To);
-
-                connection1.Weight = 1;
-                connection2.Weight = connection.Weight;
-                connection2.Enabled = connection.Enabled;
-
-                Connections.Remove(connection);
-                Connections.Add(connection1);
-                Connections.Add(connection2);
-
-                Nodes.Add(middle);
+                middle = Neat.CreateNode();
+                middle.X = (from.X + to.X) / 2;
+                middle.Y = ((from.Y + to.Y) / 2) + (ThreadSafeRandom.NormalRand(0, 0.02f) / 2);
+                Neat.SetReplaceIndex(from, to, middle.InnovationNumber);
             }
+            else
+            {
+                middle = Neat.GetNode(replaceIndex - 1);
+            }
+
+            ConnectionGene connection1 = Neat.GetConnection(from, middle);
+            ConnectionGene connection2 = Neat.GetConnection(middle, to);
+
+            connection1.Weight = 1;
+            connection2.Weight = connection.Weight;
+            connection2.Enabled = connection.Enabled;
+
+            Connections.Remove(connection);
+            Connections.Add(connection1);
+            Connections.Add(connection2);
+
+            Nodes.Add(middle);
         }
 
         public void MutateWeightShift()
