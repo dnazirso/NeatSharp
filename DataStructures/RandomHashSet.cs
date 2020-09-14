@@ -24,7 +24,7 @@ namespace DataStructures
         {
             if (Set.Any())
             {
-                int i = Math.Abs((int)(ThreadSafeRandom.Random() * Size()));
+                int i = (int)(ThreadSafeRandom.Random() * Size());
                 return Data[i];
             }
 
@@ -69,16 +69,6 @@ namespace DataStructures
         {
             if (index < 0 || index >= Size()) return default;
             return Data[index];
-        }
-
-        public T Get(T template)
-        {
-            int templateIndex = Data.IndexOf(template);
-            if (templateIndex > 0)
-            {
-                return Data[templateIndex];
-            }
-            return default;
         }
 
         public void Remove(int index)

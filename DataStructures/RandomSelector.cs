@@ -4,8 +4,8 @@ namespace DataStructures
 {
     public class RandomSelector<T>
     {
-        private List<T> elements = new List<T>();
-        private List<double> scores = new List<double>();
+        private readonly List<T> elements = new List<T>();
+        private readonly List<double> scores = new List<double>();
 
         private double totalScore = 0;
 
@@ -25,7 +25,7 @@ namespace DataStructures
             for (int i = 0; i < elements.Count; i++)
             {
                 c += scores[i];
-                if (c > v)
+                if (c >= v)
                 {
                     return elements[i];
                 }

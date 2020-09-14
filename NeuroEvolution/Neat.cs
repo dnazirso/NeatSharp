@@ -3,6 +3,7 @@ using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using Genetic;
 using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace NeuroEvolution
 {
@@ -10,11 +11,15 @@ namespace NeuroEvolution
     {
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
         private RandomHashSet<NodeGene> AllNodes { get; set; }
+        public RandomHashSet<Client> Clients { get; set; }
+        public RandomHashSet<Species> AllSpecies { get; set; }
 
         public Neat()
         {
             AllConnections = new Dictionary<ConnectionGene, ConnectionGene>();
             AllNodes = new RandomHashSet<NodeGene>();
+            Clients = new RandomHashSet<Client>();
+            AllSpecies = new RandomHashSet<Species>();
 
             Reset();
         }
@@ -35,6 +40,7 @@ namespace NeuroEvolution
         {
             AllConnections.Clear();
             AllNodes.Clear();
+            Clients.Clear();
 
             for (int i = 0; i < Constants.InputSize; i++)
             {
@@ -49,7 +55,19 @@ namespace NeuroEvolution
                 node.X = 0.9; ;
                 node.Y = (i + 1) / (double)(Constants.OutputSize + 1);
             }
+
+            for (int i = 0; i < Constants.MaxClients; i++)
+            {
+                Client c = new Client
+                {
+                    Genome = EmptyGenome()
+                };
+                c.GenerateCalculator();
+                Clients.Add(c);
+            }
         }
+
+        public Client GetClient(int index) => Clients.Get(index);
 
         public ConnectionGene GetConnection(NodeGene From, NodeGene To)
         {
@@ -83,6 +101,104 @@ namespace NeuroEvolution
             }
 
             return CreateNode();
+        }
+
+        public void Evolve()
+        {
+            GenerateSpecies();
+            Kill();
+            RemoveExtinguishedSpecies();
+            TraceSpecies();
+            Reproduce();
+            Mutate();
+            foreach (Client c in Clients.Data)
+            {
+                c.GenerateCalculator();
+            }
+        }
+
+        private void GenerateSpecies()
+        {
+            foreach (Species s in AllSpecies.Data)
+            {
+                s.Reset();
+            }
+
+            foreach (Client c in Clients.Data)
+            {
+                if (c.Species != null) continue;
+
+                bool hasFound = false;
+                foreach (Species s in AllSpecies.Data)
+                {
+                    if (s.Put(c))
+                    {
+                        hasFound = true;
+                        break;
+                    }
+                }
+                if (!hasFound) AllSpecies.Add(new Species(c));
+            }
+
+            foreach (Species s in AllSpecies.Data)
+            {
+                s.EvaluateScore();
+            }
+        }
+
+        public void Kill()
+        {
+            foreach (Species s in AllSpecies.Data)
+            {
+                s.Kill(1 - Constants.SURVIVAL_RATE);
+            }
+        }
+
+        public void RemoveExtinguishedSpecies()
+        {
+            for (int i = AllSpecies.Size() - 1; i >= 0; i--)
+            {
+                if (AllSpecies.Get(i).Size() <= 1)
+                {
+                    AllSpecies.Get(i).Extinguish();
+                    AllSpecies.Remove(i);
+                }
+            }
+        }
+
+        private void Reproduce()
+        {
+            RandomSelector<Species> selector = new RandomSelector<Species>();
+            foreach (Species s in AllSpecies.Data)
+            {
+                selector.Add(s, s.Score);
+            }
+
+            foreach (Client c in Clients.Data)
+            {
+                if (c.Species == null)
+                {
+                    Species s = selector.Random();
+                    c.Genome = s.Breed();
+                    s.ForcePut(c);
+                }
+            }
+        }
+
+        private void Mutate()
+        {
+            foreach (Client c in Clients.Data)
+            {
+                c.Mutate();
+            }
+        }
+        public void TraceSpecies()
+        {
+            Trace.WriteLine("-----------------------------------------");
+            foreach (Species s in AllSpecies.Data)
+            {
+                Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Size()}");
+            }
         }
     }
 }

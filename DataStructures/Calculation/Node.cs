@@ -30,7 +30,7 @@ namespace DataStructures.Calculation
             {
                 if (c.Enabled)
                 {
-                    s += c.Weight + c.From.Output;
+                    s += c.Weight * c.From.Output;
                 }
             }
 
@@ -39,7 +39,7 @@ namespace DataStructures.Calculation
 
         private double ActivationFunction(double x)
         {
-            return 1 / (1 + Math.Exp(-x));
+            return 1d / (1 + Math.Exp(-x));
         }
     }
 }

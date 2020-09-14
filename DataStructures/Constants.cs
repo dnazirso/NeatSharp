@@ -5,9 +5,9 @@ namespace DataStructures
     public sealed class Constants
     {
         public static readonly int MAX_NODES = (int)Math.Pow(2, 20);
-        public static readonly int InputSize = 3;
-        public static readonly int OutputSize = 2;
-        public static readonly int MaxClients = 0;
+        public static readonly int InputSize = 10;
+        public static readonly int OutputSize = 1;
+        public static readonly int MaxClients = 1000;
 
         public static readonly double C1 = 1;
         public static readonly double C2 = 1;
@@ -22,5 +22,7 @@ namespace DataStructures
         public static readonly double PROBABILITY_MUTATE_WEIGHT_SHIFT = 0.02;
         public static readonly double PROBABILITY_MUTATE_WEIGHT_RANDOM = 0.02;
         public static readonly double PROBABILITY_MUTATE_WEIGHT_TOGGLE_LINK = 0;
+
+        public static readonly double SURVIVAL_RATE = 0.8;
     }
 }

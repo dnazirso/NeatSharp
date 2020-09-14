@@ -6,9 +6,9 @@ namespace DataStructures.Calculation
 {
     public class Calculator
     {
-        List<Node> InputNodes = new List<Node>();
-        List<Node> HiddenNodes = new List<Node>();
-        List<Node> OutputNodes = new List<Node>();
+        readonly List<Node> InputNodes = new List<Node>();
+        readonly List<Node> HiddenNodes = new List<Node>();
+        readonly List<Node> OutputNodes = new List<Node>();
         public Calculator(IGenome genome)
         {
             RandomHashSet<NodeGene> nodes = genome.Nodes;
@@ -19,7 +19,7 @@ namespace DataStructures.Calculation
             foreach (NodeGene n in nodes.Data)
             {
                 Node node = new Node(n.X);
-                nodeDictionnary.Add(n.InnovationNumber, node);
+                nodeDictionnary[n.InnovationNumber] = node;
 
                 if (n.X <= 0.1)
                 {
@@ -42,9 +42,11 @@ namespace DataStructures.Calculation
                 Node from = nodeDictionnary[c.From.InnovationNumber];
                 Node to = nodeDictionnary[c.To.InnovationNumber];
 
-                Connection connection = new Connection(from, to);
-                connection.Weight = c.Weight;
-                connection.Enabled = c.Enabled;
+                Connection connection = new Connection(from, to)
+                {
+                    Weight = c.Weight,
+                    Enabled = c.Enabled
+                };
 
                 to.Connections.Add(connection);
             }

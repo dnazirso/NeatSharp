@@ -32,7 +32,7 @@ namespace Genetic
             }
             if (genome2.Connections.Size() > 0)
             {
-                highestInnovationNb2 = genome2.Connections.Get(genome1.Connections.Size() - 1).InnovationNumber;
+                highestInnovationNb2 = genome2.Connections.Get(genome2.Connections.Size() - 1).InnovationNumber;
             }
 
             if (highestInnovationNb1 < highestInnovationNb2)
@@ -48,7 +48,6 @@ namespace Genetic
             int nbDisjoint = 0;
 
             double weightDifference = 0;
-            double nbGeneInTheLargerGenome = Math.Max(genome1.Connections.Size(), genome2.Connections.Size());
 
             while (i1 < genome1.Connections.Size() && i2 < genome2.Connections.Size())
             {
@@ -65,7 +64,7 @@ namespace Genetic
                     i2++;
                 }
 
-                if (i1 > i2)
+                if (gene1.InnovationNumber > gene2.InnovationNumber)
                 {
                     nbDisjoint++;
                     i2++;
@@ -80,7 +79,15 @@ namespace Genetic
 
             int nbExcess = genome1.Connections.Size() - i1;
 
-            return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint) / nbGeneInTheLargerGenome) + (Constants.C3 * weightDifference / nbMatching);
+            double nbGeneInTheLargerGenome = Math.Max(genome1.Connections.Size(), genome2.Connections.Size());
+            if (nbGeneInTheLargerGenome < 20)
+            {
+                nbGeneInTheLargerGenome = 1;
+            }
+
+            double meanWdiff = weightDifference * Math.Max(1, nbMatching);
+
+            return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint) / nbGeneInTheLargerGenome) + (Constants.C3 * meanWdiff);
         }
 
         public void Mutate()
@@ -99,10 +106,8 @@ namespace Genetic
                 NodeGene a = Nodes.RandomElement();
                 NodeGene b = Nodes.RandomElement();
 
-                if (a.X.Equals(b.X))
-                {
-                    continue;
-                }
+                if (a == null || b == null) continue;
+                if (a.X.Equals(b.X)) continue;
 
                 ConnectionGene connection;
                 if (a.X < b.X)
@@ -114,13 +119,10 @@ namespace Genetic
                     connection = new ConnectionGene(b, a);
                 }
 
-                if (Connections.Contains(connection))
-                {
-                    continue;
-                }
+                if (Connections.Contains(connection)) continue;
 
                 connection = Neat.GetConnection(connection.From, connection.To);
-                connection.Weight += ThreadSafeRandom.NormalRand() * Constants.WEIGHT_SHIFT_STRENGTH;
+                connection.Weight += ThreadSafeRandom.NormalRand(0, 0.2f) * Constants.WEIGHT_SHIFT_STRENGTH;
 
                 Connections.AddSorted(connection);
 
@@ -138,13 +140,14 @@ namespace Genetic
 
                 NodeGene middle = Neat.CreateNode();
                 middle.X = (From.X + To.X) / 2;
-                middle.Y = ((From.Y + To.Y) / 2) + ThreadSafeRandom.NormalRand(0, 0.05f);
+                middle.Y = ((From.Y + To.Y) / 2) + ThreadSafeRandom.NormalRand(0, 0.02f);
 
                 ConnectionGene connection1 = Neat.GetConnection(From, middle);
                 ConnectionGene connection2 = Neat.GetConnection(middle, To);
 
                 connection1.Weight = 1;
                 connection2.Weight = connection.Weight;
+                connection2.Enabled = connection.Enabled;
 
                 Connections.Remove(connection);
                 Connections.Add(connection1);
@@ -159,7 +162,7 @@ namespace Genetic
             ConnectionGene connection = Connections.RandomElement();
             if (connection != null)
             {
-                connection.Weight += ThreadSafeRandom.NormalRand() * Constants.WEIGHT_SHIFT_STRENGTH;
+                connection.Weight += ThreadSafeRandom.NormalRand(0, 0.2f) * Constants.WEIGHT_SHIFT_STRENGTH;
             }
         }
 
@@ -168,7 +171,7 @@ namespace Genetic
             ConnectionGene connection = Connections.RandomElement();
             if (connection != null)
             {
-                connection.Weight += ThreadSafeRandom.NormalRand() * Constants.WEIGHT_RANDOM_STRENGTH;
+                connection.Weight = ThreadSafeRandom.NormalRand(0, 0.2f) * Constants.WEIGHT_RANDOM_STRENGTH;
             }
         }
 

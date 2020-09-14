@@ -28,12 +28,25 @@
             return From.InnovationNumber * Constants.MAX_NODES + To.InnovationNumber;
         }
 
+        public override string ToString()
+        {
+            return "ConnectionGene{" +
+                    "From=" + From.InnovationNumber +
+                    ", To=" + To.InnovationNumber +
+                    ", Weight=" + Weight +
+                    ", Enabled=" + Enabled +
+                    ", InnovationNumber=" + InnovationNumber+
+                    '}';
+        }
+
         public static ConnectionGene GetConnection(ConnectionGene connection)
         {
-            ConnectionGene gene = new ConnectionGene(connection.From, connection.To);
-            gene.InnovationNumber = connection.InnovationNumber;
-            gene.Weight = connection.Weight;
-            gene.Enabled = connection.Enabled;
+            ConnectionGene gene = new ConnectionGene(connection.From, connection.To)
+            {
+                InnovationNumber = connection.InnovationNumber,
+                Weight = connection.Weight,
+                Enabled = connection.Enabled
+            };
             return gene;
         }
     }

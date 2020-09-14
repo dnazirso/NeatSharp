@@ -1,6 +1,4 @@
 ﻿using DataStructures.GeneticAggregate;
-using System.Diagnostics;
-using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -11,8 +9,8 @@ namespace Prompt.Menu
     /// </summary>
     public partial class ButtonStack : UserControl
     {
-        IGenome genome;
-        MainWindow main;
+        readonly IGenome genome;
+        readonly MainWindow main;
 
         public ButtonStack(IGenome genome, MainWindow main)
         {
@@ -68,23 +66,5 @@ namespace Prompt.Menu
             genome.MutateToggleLink();
             main.PlaceGenes();
         }
-
-        private static void TraceCalculation(double[] d)
-        {
-            for (int i = 0; i < d.Length; i++)
-            {
-                if (i == 0) Trace.Write($"[");
-                Trace.Write($"{d[i]}");
-                if (i == d.Length - 1)
-                {
-                    Trace.Write($"]\n");
-                }
-                else
-                {
-                    Trace.Write(", ");
-                }
-            }
-        }
-
     }
 }

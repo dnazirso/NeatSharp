@@ -1,4 +1,6 @@
-﻿using DataStructures.GeneticAggregate;
+﻿using DataStructures;
+using DataStructures.GeneticAggregate;
+using DataStructures.NeuroEvolutionAggregate;
 using NeuroEvolution;
 using Prompt.Menu;
 using Prompt.Sprites;
@@ -11,13 +13,28 @@ namespace Prompt
     /// </summary>
     public partial class MainWindow : Window
     {
-        IGenome genome;
+        readonly IGenome genome;
+        readonly Neat neat;
 
         public MainWindow()
         {
             InitializeComponent();
 
-            Neat neat = new Neat();
+            neat = new Neat();
+
+            double[] inputs = new double[10];
+            for (int i = 0; i < 10; i++) inputs[i] = ThreadSafeRandom.Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                foreach (Client c in neat.Clients.Data)
+                {
+                    c.Score = c.Calculate(inputs)[0];
+                }
+                neat.Evolve();
+                neat.TraceSpecies();
+            }
+
             genome = neat.EmptyGenome();
 
             ButtonStack buttonStack = new ButtonStack(genome, this);
