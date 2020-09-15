@@ -1,6 +1,4 @@
-﻿using DataStructures;
-using DataStructures.GeneticAggregate;
-using DataStructures.NeuroEvolutionAggregate;
+﻿using DataStructures.GeneticAggregate;
 using NeuroEvolution;
 using Prompt.Abstraction;
 using Prompt.Menu;
@@ -22,19 +20,6 @@ namespace Prompt
             InitializeComponent();
 
             neat = new Neat();
-
-            double[] inputs = new double[10];
-            for (int i = 0; i < 10; i++) inputs[i] = ThreadSafeRandom.Random();
-
-            for (int i = 0; i < 100; i++)
-            {
-                foreach (Client c in neat.Clients.Data)
-                {
-                    c.Score = c.Calculate(inputs)[0];
-                }
-                neat.Evolve();
-                neat.TraceSpecies();
-            }
 
             genome = neat.EmptyGenome();
 

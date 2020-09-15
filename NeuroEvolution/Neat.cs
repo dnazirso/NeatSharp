@@ -121,7 +121,6 @@ namespace NeuroEvolution
             GenerateSpecies();
             Kill();
             RemoveExtinguishedSpecies();
-            TraceSpecies();
             Reproduce();
             Mutate();
             foreach (Client c in Clients.Data)
@@ -205,6 +204,25 @@ namespace NeuroEvolution
                 c.Mutate();
             }
         }
+
+        public void CheckEvolutionProcess()
+        {
+            Neat neat = new Neat();
+
+            double[] inputs = new double[10];
+            for (int i = 0; i < 10; i++) inputs[i] = ThreadSafeRandom.Random();
+
+            for (int i = 0; i < 100; i++)
+            {
+                foreach (Client c in neat.Clients.Data)
+                {
+                    c.Score = c.Calculate(inputs)[0];
+                }
+                neat.Evolve();
+                neat.TraceSpecies();
+            }
+        }
+
         public void TraceSpecies()
         {
             Trace.WriteLine("-----------------------------------------");
