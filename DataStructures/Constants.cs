@@ -5,8 +5,8 @@ namespace DataStructures
     public sealed class Constants
     {
         public static readonly int MAX_NODES = (int)Math.Pow(2, 20);
-        public static readonly int InputSize = 10;
-        public static readonly int OutputSize = 1;
+        public static readonly int InputSize = 3;
+        public static readonly int OutputSize = 2;
         public static readonly int MaxClients = 1000;
 
         public static readonly double C1 = 1;

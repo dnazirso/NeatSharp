@@ -2,6 +2,7 @@
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using NeuroEvolution;
+using Prompt.Abstraction;
 using Prompt.Menu;
 using Prompt.Sprites;
 using System.Windows;
@@ -11,7 +12,7 @@ namespace Prompt
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IRefresher
     {
         readonly IGenome genome;
         readonly Neat neat;
@@ -40,10 +41,10 @@ namespace Prompt
             ButtonStack buttonStack = new ButtonStack(genome, this);
 
             mainWindow.Children.Add(buttonStack);
-            PlaceGenes();
+            Refresh();
         }
 
-        public void PlaceGenes()
+        public void Refresh()
         {
             board.Children.Clear();
 
