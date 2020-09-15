@@ -24,22 +24,19 @@ namespace DataStructures.Calculation
 
         public void Calculate()
         {
-            double s = 0;
+            double z = 0;
 
             foreach (Connection c in Connections)
             {
                 if (c.Enabled)
                 {
-                    s += c.Weight * c.From.Output;
+                    z += c.Weight * c.From.Output;
                 }
             }
 
-            Output = ActivationFunction(s);
+            Output = ActivationFunction(z);
         }
 
-        private double ActivationFunction(double x)
-        {
-            return 1d / (1 + Math.Exp(-x));
-        }
+        private double ActivationFunction(double z) => 1d / (1 + Math.Exp(-z));
     }
 }

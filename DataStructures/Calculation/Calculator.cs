@@ -42,11 +42,7 @@ namespace DataStructures.Calculation
                 Node from = nodeDictionnary[c.From.InnovationNumber];
                 Node to = nodeDictionnary[c.To.InnovationNumber];
 
-                Connection connection = new Connection(from, to)
-                {
-                    Weight = c.Weight,
-                    Enabled = c.Enabled
-                };
+                Connection connection = new Connection(from, to, c.Weight, c.Enabled);
 
                 to.Connections.Add(connection);
             }

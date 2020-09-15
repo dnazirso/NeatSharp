@@ -11,17 +11,13 @@ namespace DataStructures.NeuroEvolutionAggregate
         public Species Species { get; set; }
         public Calculator Calculator { get; set; }
 
-        public void GenerateCalculator()
+        public Client(IGenome Genome)
         {
+            this.Genome = Genome;
             Calculator = new Calculator(Genome);
         }
 
-        public IList<double> Calculate(IList<double> input)
-        {
-            if (Calculator == null) GenerateCalculator();
-            return Calculator.Calculate(input);
-        }
-
+        public IList<double> Calculate(IList<double> input) => Calculator.Calculate(input);
         public double Distance(Client other) => Genome.Distance(other.Genome);
         public void Mutate() => Genome.Mutate();
     }

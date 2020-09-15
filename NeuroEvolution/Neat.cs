@@ -11,8 +11,8 @@ namespace NeuroEvolution
     {
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
         private RandomHashSet<NodeGene> AllNodes { get; set; }
-        public RandomHashSet<Client> Clients { get; set; }
-        public RandomHashSet<Species> AllSpecies { get; set; }
+        private RandomHashSet<Client> Clients { get; set; }
+        private RandomHashSet<Species> AllSpecies { get; set; }
 
         public Neat()
         {
@@ -58,11 +58,7 @@ namespace NeuroEvolution
 
             for (int i = 0; i < Constants.MaxClients; i++)
             {
-                Client c = new Client
-                {
-                    Genome = EmptyGenome()
-                };
-                c.GenerateCalculator();
+                Client c = new Client(EmptyGenome());
                 Clients.Add(c);
             }
         }
@@ -123,10 +119,6 @@ namespace NeuroEvolution
             RemoveExtinguishedSpecies();
             Reproduce();
             Mutate();
-            foreach (Client c in Clients.Data)
-            {
-                c.GenerateCalculator();
-            }
         }
 
         private void GenerateSpecies()
