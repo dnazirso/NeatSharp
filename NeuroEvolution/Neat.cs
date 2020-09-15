@@ -209,8 +209,8 @@ namespace NeuroEvolution
         {
             Neat neat = new Neat();
 
-            double[] inputs = new double[10];
-            for (int i = 0; i < 10; i++) inputs[i] = ThreadSafeRandom.Random();
+            double[] inputs = new double[Constants.InputSize];
+            for (int i = 0; i < Constants.InputSize; i++) inputs[i] = ThreadSafeRandom.Random();
 
             for (int i = 0; i < 100; i++)
             {
