@@ -63,8 +63,6 @@ namespace NeuroEvolution
             }
         }
 
-        public Client GetClient(int index) => Clients.Get(index);
-
         public ConnectionGene GetConnection(NodeGene From, NodeGene To)
         {
             ConnectionGene connection = new ConnectionGene(From, To);
