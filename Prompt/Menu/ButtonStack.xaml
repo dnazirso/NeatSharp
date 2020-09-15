@@ -3,8 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" VerticalContentAlignment="Bottom">
+             mc:Ignorable="d" VerticalContentAlignment="Bottom">
     <Grid VerticalAlignment="Center" Height="35">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
