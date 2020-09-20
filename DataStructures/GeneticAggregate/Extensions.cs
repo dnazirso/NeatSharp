@@ -10,14 +10,14 @@ namespace DataStructures.GeneticAggregate
             int highestInnovationNb1 = 0;
             int highestInnovationNb2 = 0;
 
-            if (genome1.Connections.Size() > 0)
+            if (genome1.Connections.Count > 0)
             {
-                highestInnovationNb1 = genome1.Connections.Get(genome1.Connections.Size() - 1).InnovationNumber;
+                highestInnovationNb1 = genome1.Connections[^1].InnovationNumber;
             }
 
-            if (genome2.Connections.Size() > 0)
+            if (genome2.Connections.Count > 0)
             {
-                highestInnovationNb2 = genome2.Connections.Get(genome2.Connections.Size() - 1).InnovationNumber;
+                highestInnovationNb2 = genome2.Connections[^1].InnovationNumber;
             }
 
             if (highestInnovationNb1 < highestInnovationNb2)
@@ -35,10 +35,10 @@ namespace DataStructures.GeneticAggregate
 
             double weightDifference = 0;
 
-            while (i1 < genome1.Connections.Size() && i2 < genome2.Connections.Size())
+            while (i1 < genome1.Connections.Count && i2 < genome2.Connections.Count)
             {
-                ConnectionGene gene1 = genome1.Connections.Get(i1);
-                ConnectionGene gene2 = genome2.Connections.Get(i2);
+                ConnectionGene gene1 = genome1.Connections[i1];
+                ConnectionGene gene2 = genome2.Connections[i2];
 
                 if (gene1.InnovationNumber == gene2.InnovationNumber)
                 {
@@ -61,9 +61,9 @@ namespace DataStructures.GeneticAggregate
                 }
             }
 
-            int nbExcess = genome1.Connections.Size() - i1;
+            int nbExcess = genome1.Connections.Count - i1;
 
-            double nbGeneInTheLargerGenome = Math.Max(genome1.Connections.Size(), genome2.Connections.Size());
+            double nbGeneInTheLargerGenome = Math.Max(genome1.Connections.Count, genome2.Connections.Count);
 
             if (nbGeneInTheLargerGenome < 20)
             {
@@ -72,7 +72,7 @@ namespace DataStructures.GeneticAggregate
 
             double meanWdiff = weightDifference / Math.Max(1, nbMatching);
 
-            return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint ) / nbGeneInTheLargerGenome) + Constants.C3 * meanWdiff;
+            return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint) / nbGeneInTheLargerGenome) + Constants.C3 * meanWdiff;
         }
 
         public static IGenome CrossOver(this IGenome parent1, IGenome parent2)
@@ -83,10 +83,10 @@ namespace DataStructures.GeneticAggregate
             int i1 = 0;
             int i2 = 0;
 
-            while (i1 < parent1.Connections.Size() && i2 < parent2.Connections.Size())
+            while (i1 < parent1.Connections.Count && i2 < parent2.Connections.Count)
             {
-                ConnectionGene gene1 = parent1.Connections.Get(i1);
-                ConnectionGene gene2 = parent2.Connections.Get(i2);
+                ConnectionGene gene1 = parent1.Connections[i1];
+                ConnectionGene gene2 = parent2.Connections[i2];
 
                 if (gene1.InnovationNumber == gene2.InnovationNumber)
                 {
@@ -114,14 +114,14 @@ namespace DataStructures.GeneticAggregate
                 }
             }
 
-            while (i1 < parent1.Connections.Size())
+            while (i1 < parent1.Connections.Count)
             {
-                ConnectionGene gene1 = parent1.Connections.Get(i1);
+                ConnectionGene gene1 = parent1.Connections[i1];
                 offSpringGenome.Connections.Add(gene1.GetConnection());
                 i1++;
             }
 
-            foreach (ConnectionGene c in offSpringGenome.Connections.Data)
+            foreach (ConnectionGene c in offSpringGenome.Connections)
             {
                 offSpringGenome.Nodes.Add(c.From);
                 offSpringGenome.Nodes.Add(c.To);

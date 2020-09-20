@@ -16,7 +16,7 @@ namespace DataStructures.Calculation
 
             Dictionary<int, Node> nodeDictionnary = new Dictionary<int, Node>();
 
-            foreach (NodeGene n in nodes.Data)
+            foreach (NodeGene n in nodes)
             {
                 Node node = new Node(n.X);
                 nodeDictionnary[n.InnovationNumber] = node;
@@ -37,7 +37,7 @@ namespace DataStructures.Calculation
 
             HiddenNodes.Sort((Node n1, Node n2) => n1.CompareTo(n2));
 
-            foreach (ConnectionGene c in connections.Data)
+            foreach (ConnectionGene c in connections)
             {
                 Node from = nodeDictionnary[c.From.InnovationNumber];
                 Node to = nodeDictionnary[c.To.InnovationNumber];

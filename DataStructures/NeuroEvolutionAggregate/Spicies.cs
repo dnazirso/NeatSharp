@@ -44,7 +44,7 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void EvaluateScore()
         {
-            Score = Clients.Data.Sum(d => d.Score) / Clients.Size();
+            Score = Clients.Data.Sum(d => d.Score) / Clients.Count;
         }
 
         public void Reset()
@@ -65,10 +65,10 @@ namespace DataStructures.NeuroEvolutionAggregate
         {
             Clients.Data.Sort((Client c1, Client c2) => c1.Score.CompareTo(c2.Score));
 
-            double amount = percentage * Clients.Size();
+            double amount = percentage * Clients.Count;
             for (int i = 0; i < amount; i++)
             {
-                Clients.Get(0).Species = null;
+                Clients[0].Species = null;
                 Clients.Remove(0);
             }
         }
@@ -82,6 +82,6 @@ namespace DataStructures.NeuroEvolutionAggregate
             return c2.Genome.CrossOver(c1.Genome);
         }
 
-        public int Size() => Clients.Size();
+        public int Count => Clients.Count;
     }
 }

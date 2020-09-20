@@ -1,11 +1,12 @@
 ﻿using DataStructures.GeneticAggregate;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 
 namespace DataStructures
 {
-    public class RandomHashSet<T>
+    public class RandomHashSet<T> : IEnumerable<T>
     {
         private HashSet<T> Set { get; set; }
         public List<T> Data { get; }
@@ -16,15 +17,13 @@ namespace DataStructures
             Data = new List<T>();
         }
 
-        public int Size() => Data.Count;
-
         public bool Contains(T obj) => Set.Contains(obj);
 
         public T RandomElement()
         {
             if (Set.Any())
             {
-                int i = (int)(ThreadSafeRandom.Random() * Size());
+                int i = (int)(ThreadSafeRandom.Random() * Count);
                 return Data[i];
             }
 
@@ -44,7 +43,7 @@ namespace DataStructures
         {
             T g = (T)Convert.ChangeType(gene, typeof(T));
 
-            for (int i = 0; i < Size(); i++)
+            for (int i = 0; i < Count; i++)
             {
                 int innovationNb = (Data[i] as Gene).InnovationNumber;
                 if (gene.InnovationNumber < innovationNb)
@@ -65,15 +64,9 @@ namespace DataStructures
             Data.Clear();
         }
 
-        public T Get(int index)
-        {
-            if (index < 0 || index >= Size()) return default;
-            return Data[index];
-        }
-
         public void Remove(int index)
         {
-            if (index < 0 || index >= Size()) return;
+            if (index < 0 || index >= Count) return;
             Set.Remove(Data[index]);
             Data.Remove(Data[index]);
         }
@@ -82,6 +75,27 @@ namespace DataStructures
         {
             Set.Remove(obj);
             Data.Remove(obj);
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            return ((IEnumerable<T>)Data).GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable)Data).GetEnumerator();
+        }
+
+        public int Count => Data.Count;
+
+        public T this[int index]
+        {
+            get
+            {
+                if (index < 0 || index >= Count) return default;
+                return Data[index];
+            }
         }
     }
 }

@@ -95,16 +95,16 @@ namespace NeuroEvolution
 
         public NodeGene CreateNode()
         {
-            NodeGene node = new NodeGene(AllNodes.Size() + 1);
+            NodeGene node = new NodeGene(AllNodes.Count + 1);
             AllNodes.Add(node);
             return node;
         }
 
         public NodeGene GetNode(int id)
         {
-            if (id <= AllNodes.Size())
+            if (id <= AllNodes.Count)
             {
-                return AllNodes.Get(id - 1);
+                return AllNodes[id - 1];
             }
 
             return CreateNode();
@@ -161,11 +161,11 @@ namespace NeuroEvolution
 
         public void RemoveExtinguishedSpecies()
         {
-            for (int i = AllSpecies.Size() - 1; i >= 0; i--)
+            for (int i = AllSpecies.Count - 1; i >= 0; i--)
             {
-                if (AllSpecies.Get(i).Size() <= 1)
+                if (AllSpecies[i].Count <= 1)
                 {
-                    AllSpecies.Get(i).Extinguish();
+                    AllSpecies[i].Extinguish();
                     AllSpecies.Remove(i);
                 }
             }
@@ -222,7 +222,7 @@ namespace NeuroEvolution
             Trace.WriteLine("-----------------------------------------");
             foreach (Species s in AllSpecies.Data)
             {
-                Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Size()}");
+                Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Count}");
             }
         }
 
