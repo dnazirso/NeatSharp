@@ -21,6 +21,8 @@ namespace Prompt
 
             neat = new Neat();
 
+            neat.CheckEvolutionProcess();
+
             genome = neat.EmptyGenome();
 
             ButtonStack buttonStack = new ButtonStack(genome, this);

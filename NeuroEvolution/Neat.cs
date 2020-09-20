@@ -11,14 +11,14 @@ namespace NeuroEvolution
     {
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
         private RandomHashSet<NodeGene> AllNodes { get; set; }
-        private RandomHashSet<Client> Clients { get; set; }
+        private RandomHashSet<Client> AllClients { get; set; }
         private RandomHashSet<Species> AllSpecies { get; set; }
 
         public Neat()
         {
             AllConnections = new Dictionary<ConnectionGene, ConnectionGene>();
             AllNodes = new RandomHashSet<NodeGene>();
-            Clients = new RandomHashSet<Client>();
+            AllClients = new RandomHashSet<Client>();
             AllSpecies = new RandomHashSet<Species>();
 
             Reset();
@@ -30,7 +30,7 @@ namespace NeuroEvolution
 
             for (int i = 0; i < Constants.InputSize + Constants.OutputSize; i++)
             {
-                g.Nodes.Add(GetNode(i));
+                g.Nodes.Add(GetNode(i + 1));
             }
 
             return g;
@@ -40,7 +40,7 @@ namespace NeuroEvolution
         {
             AllConnections.Clear();
             AllNodes.Clear();
-            Clients.Clear();
+            AllClients.Clear();
 
             for (int i = 0; i < Constants.InputSize; i++)
             {
@@ -59,7 +59,7 @@ namespace NeuroEvolution
             for (int i = 0; i < Constants.MaxClients; i++)
             {
                 Client c = new Client(EmptyGenome());
-                Clients.Add(c);
+                AllClients.Add(c);
             }
         }
 
@@ -102,9 +102,9 @@ namespace NeuroEvolution
 
         public NodeGene GetNode(int id)
         {
-            if (id + 1 <= AllNodes.Size())
+            if (id <= AllNodes.Size())
             {
-                return AllNodes.Get(id);
+                return AllNodes.Get(id - 1);
             }
 
             return CreateNode();
@@ -117,6 +117,10 @@ namespace NeuroEvolution
             RemoveExtinguishedSpecies();
             Reproduce();
             Mutate();
+            foreach (Client client in AllClients.Data)
+            {
+                client.RegenerateCalculator();
+            }
         }
 
         private void GenerateSpecies()
@@ -126,16 +130,15 @@ namespace NeuroEvolution
                 s.Reset();
             }
 
-            foreach (Client c in Clients.Data)
+            foreach (Client c in AllClients.Data)
             {
                 if (c.Species != null) continue;
 
                 bool hasFound = false;
                 foreach (Species s in AllSpecies.Data)
                 {
-                    if (s.Put(c))
+                    if (hasFound = s.Put(c))
                     {
-                        hasFound = true;
                         break;
                     }
                 }
@@ -176,7 +179,7 @@ namespace NeuroEvolution
                 selector.Add(s, s.Score);
             }
 
-            foreach (Client c in Clients.Data)
+            foreach (Client c in AllClients.Data)
             {
                 if (c.Species == null)
                 {
@@ -189,7 +192,7 @@ namespace NeuroEvolution
 
         private void Mutate()
         {
-            foreach (Client c in Clients.Data)
+            foreach (Client c in AllClients.Data)
             {
                 c.Mutate();
             }
@@ -200,11 +203,11 @@ namespace NeuroEvolution
             Neat neat = new Neat();
 
             double[] inputs = new double[Constants.InputSize];
-            for (int i = 0; i < Constants.InputSize; i++) inputs[i] = ThreadSafeRandom.Random();
+            for (int i = 0; i < Constants.InputSize; i++) inputs[i] = ThreadSafeRandom.NormalRand();
 
             for (int i = 0; i < 100; i++)
             {
-                foreach (Client c in neat.Clients.Data)
+                foreach (Client c in neat.AllClients.Data)
                 {
                     c.Score = c.Calculate(inputs)[0];
                 }

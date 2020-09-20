@@ -8,12 +8,10 @@
         public double Weight { get; set; }
         public bool Enabled { get; set; } = true;
 
-        public Connection(Node From, Node To, double Weight, bool Enabled)
+        public Connection(Node From, Node To)
         {
             this.From = From;
             this.To = To;
-            this.Weight = Weight;
-            this.Enabled = Enabled;
         }
     }
 }

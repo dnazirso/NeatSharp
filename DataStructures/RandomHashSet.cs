@@ -8,7 +8,7 @@ namespace DataStructures
     public class RandomHashSet<T>
     {
         private HashSet<T> Set { get; set; }
-        public List<T> Data { get; set; }
+        public List<T> Data { get; }
 
         public RandomHashSet()
         {

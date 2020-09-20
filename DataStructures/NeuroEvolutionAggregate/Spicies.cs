@@ -1,4 +1,5 @@
 ﻿using DataStructures.GeneticAggregate;
+using System.Linq;
 
 namespace DataStructures.NeuroEvolutionAggregate
 {
@@ -43,12 +44,7 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void EvaluateScore()
         {
-            double v = 0;
-            foreach (Client c in Clients.Data)
-            {
-                v += c.Score;
-            }
-            Score = v / Clients.Size();
+            Score = Clients.Data.Sum(d => d.Score) / Clients.Size();
         }
 
         public void Reset()

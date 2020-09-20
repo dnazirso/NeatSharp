@@ -17,6 +17,7 @@ namespace DataStructures.NeuroEvolutionAggregate
             Calculator = new Calculator(Genome);
         }
 
+        public void RegenerateCalculator() => Calculator = new Calculator(Genome);
         public IList<double> Calculate(IList<double> input) => Calculator.Calculate(input);
         public double Distance(Client other) => Genome.Distance(other.Genome);
         public void Mutate() => Genome.Mutate();

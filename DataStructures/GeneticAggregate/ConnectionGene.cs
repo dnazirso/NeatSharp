@@ -40,16 +40,5 @@
                     ", InnovationNumber=" + InnovationNumber+
                     '}';
         }
-
-        public static ConnectionGene GetConnection(ConnectionGene connection)
-        {
-            ConnectionGene gene = new ConnectionGene(connection.From, connection.To)
-            {
-                InnovationNumber = connection.InnovationNumber,
-                Weight = connection.Weight,
-                Enabled = connection.Enabled
-            };
-            return gene;
-        }
     }
 }

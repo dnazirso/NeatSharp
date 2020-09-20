@@ -8,7 +8,6 @@ namespace DataStructures.GeneticAggregate
         INeat Neat { get; }
         RandomHashSet<NodeGene> Nodes { get; }
 
-        double Distance(IGenome genome2);
         void Mutate();
         void MutateLink();
         void MutateNode();
