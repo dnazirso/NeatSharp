@@ -212,7 +212,8 @@ namespace NeuroEvolution
                     c.Score = c.Calculate(inputs)[0];
                 }
                 neat.Evolve();
-                neat.TraceSpecies();
+                //neat.TraceClients();
+                //neat.TraceSpecies();
             }
         }
 
@@ -222,6 +223,19 @@ namespace NeuroEvolution
             foreach (Species s in AllSpecies.Data)
             {
                 Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Size()}");
+            }
+        }
+
+        public void TraceClients()
+        {
+            Trace.WriteLine("-----------------------------------------");
+            foreach (Client c in AllClients.Data)
+            {
+                foreach (ConnectionGene g in c.Genome.Connections.Data)
+                {
+                    Trace.Write($"{g.InnovationNumber} ");
+                }
+                Trace.WriteLine("");
             }
         }
     }
