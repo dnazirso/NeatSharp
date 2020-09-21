@@ -63,13 +63,13 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void Kill(double percentage)
         {
-            Clients.Data.Sort((Client c1, Client c2) => c1.Score.CompareTo(c2.Score));
+            Clients.Sort((Client c1, Client c2) => c1.CompareTo(c2));
 
             double amount = percentage * Clients.Count;
             for (int i = 0; i < amount; i++)
             {
-                Clients[0].Species = null;
-                Clients.Remove(0);
+                Clients[^1].Species = null;
+                Clients.Remove(Clients[^1]);
             }
         }
 

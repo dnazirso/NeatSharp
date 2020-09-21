@@ -87,6 +87,11 @@ namespace DataStructures
             return ((IEnumerable)Data).GetEnumerator();
         }
 
+        public void Sort(Comparison<T> comparison)
+        {
+            Data.Sort(comparison);
+        }
+
         public int Count => Data.Count;
 
         public T this[int index]
