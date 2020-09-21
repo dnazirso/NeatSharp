@@ -88,7 +88,7 @@ namespace Genetic
             connection2.Weight = connection.Weight;
             connection2.Enabled = connection.Enabled;
 
-            Connections.Remove(connection);
+            connection.Enabled = false;
             Connections.Add(connection1);
             Connections.Add(connection2);
 
