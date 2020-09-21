@@ -117,7 +117,7 @@ namespace NeuroEvolution
             RemoveExtinguishedSpecies();
             Reproduce();
             Mutate();
-            foreach (Client client in AllClients.Data)
+            foreach (Client client in AllClients)
             {
                 client.RegenerateCalculator();
             }
@@ -125,17 +125,17 @@ namespace NeuroEvolution
 
         private void GenerateSpecies()
         {
-            foreach (Species s in AllSpecies.Data)
+            foreach (Species s in AllSpecies)
             {
                 s.Reset();
             }
 
-            foreach (Client c in AllClients.Data)
+            foreach (Client c in AllClients)
             {
                 if (c.Species != null) continue;
 
                 bool hasFound = false;
-                foreach (Species s in AllSpecies.Data)
+                foreach (Species s in AllSpecies)
                 {
                     if (hasFound = s.Put(c))
                     {
@@ -145,7 +145,7 @@ namespace NeuroEvolution
                 if (!hasFound) AllSpecies.Add(new Species(c));
             }
 
-            foreach (Species s in AllSpecies.Data)
+            foreach (Species s in AllSpecies)
             {
                 s.EvaluateScore();
             }
@@ -153,7 +153,7 @@ namespace NeuroEvolution
 
         public void Kill()
         {
-            foreach (Species s in AllSpecies.Data)
+            foreach (Species s in AllSpecies)
             {
                 s.Kill(1 - Constants.SURVIVAL_RATE);
             }
@@ -174,12 +174,12 @@ namespace NeuroEvolution
         private void Reproduce()
         {
             RandomSelector<Species> selector = new RandomSelector<Species>();
-            foreach (Species s in AllSpecies.Data)
+            foreach (Species s in AllSpecies)
             {
                 selector.Add(s, s.Score);
             }
 
-            foreach (Client c in AllClients.Data)
+            foreach (Client c in AllClients)
             {
                 if (c.Species == null)
                 {
@@ -192,7 +192,7 @@ namespace NeuroEvolution
 
         private void Mutate()
         {
-            foreach (Client c in AllClients.Data)
+            foreach (Client c in AllClients)
             {
                 c.Mutate();
             }
@@ -207,7 +207,7 @@ namespace NeuroEvolution
 
             for (int i = 0; i < 100; i++)
             {
-                foreach (Client c in neat.AllClients.Data)
+                foreach (Client c in neat.AllClients)
                 {
                     c.Score = c.Calculate(inputs)[0];
                 }
@@ -220,7 +220,7 @@ namespace NeuroEvolution
         public void TraceSpecies()
         {
             Trace.WriteLine("-----------------------------------------");
-            foreach (Species s in AllSpecies.Data)
+            foreach (Species s in AllSpecies)
             {
                 Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Count}");
             }
@@ -229,9 +229,9 @@ namespace NeuroEvolution
         public void TraceClients()
         {
             Trace.WriteLine("-----------------------------------------");
-            foreach (Client c in AllClients.Data)
+            foreach (Client c in AllClients)
             {
-                foreach (ConnectionGene g in c.Genome.Connections.Data)
+                foreach (ConnectionGene g in c.Genome.Connections)
                 {
                     Trace.Write($"{g.InnovationNumber} ");
                 }

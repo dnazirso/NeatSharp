@@ -36,7 +36,7 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void Extinguish()
         {
-            foreach (Client c in Clients.Data)
+            foreach (Client c in Clients)
             {
                 c.Species = null;
             }
@@ -44,13 +44,13 @@ namespace DataStructures.NeuroEvolutionAggregate
 
         public void EvaluateScore()
         {
-            Score = Clients.Data.Sum(d => d.Score) / Clients.Count;
+            Score = Clients.Sum(d => d.Score) / Clients.Count;
         }
 
         public void Reset()
         {
             Representative = Clients.RandomElement();
-            foreach (Client c in Clients.Data)
+            foreach (Client c in Clients)
             {
                 c.Species = null;
             }
