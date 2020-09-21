@@ -198,7 +198,7 @@ namespace NeuroEvolution
             }
         }
 
-        public void CheckEvolutionProcess()
+        public RandomHashSet<Client> CheckEvolutionProcess()
         {
             Neat neat = new Neat();
 
@@ -212,9 +212,11 @@ namespace NeuroEvolution
                     c.Score = c.Calculate(inputs)[0];
                 }
                 neat.Evolve();
-                //neat.TraceClients();
+                ////neat.TraceClients();
                 //neat.TraceSpecies();
             }
+
+            return neat.AllClients;
         }
 
         public void TraceSpecies()
@@ -222,7 +224,7 @@ namespace NeuroEvolution
             Trace.WriteLine("-----------------------------------------");
             foreach (Species s in AllSpecies)
             {
-                Trace.WriteLine($"{s.Representative.Genome.GetHashCode()} {s.Score} {s.Count}");
+                Trace.WriteLine($"{s.GetHashCode()} {s.Score} {s.Count}");
             }
         }
 
