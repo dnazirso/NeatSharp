@@ -20,12 +20,5 @@
         {
             return InnovationNumber;
         }
-
-        public override string ToString()
-        {
-            return "NodeGene{" +
-                    "InnovationNumber=" + InnovationNumber +
-                    '}';
-        }
     }
 }

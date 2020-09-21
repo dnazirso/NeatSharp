@@ -29,16 +29,5 @@
         {
             return From.InnovationNumber * Constants.MAX_NODES + To.InnovationNumber;
         }
-
-        public override string ToString()
-        {
-            return "ConnectionGene{" +
-                    "From=" + From.InnovationNumber +
-                    ", To=" + To.InnovationNumber +
-                    ", Weight=" + Weight +
-                    ", Enabled=" + Enabled +
-                    ", InnovationNumber=" + InnovationNumber+
-                    '}';
-        }
     }
 }
