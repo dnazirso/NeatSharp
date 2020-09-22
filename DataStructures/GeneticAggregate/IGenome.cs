@@ -5,8 +5,8 @@ namespace DataStructures.GeneticAggregate
     public interface IGenome
     {
         RandomHashSet<ConnectionGene> Connections { get; }
-        INeat Neat { get; }
         RandomHashSet<NodeGene> Nodes { get; }
+        INeat Neat { get; }
 
         void Mutate();
         void MutateLink();
