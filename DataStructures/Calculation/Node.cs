@@ -34,9 +34,7 @@ namespace DataStructures.Calculation
                 }
             }
 
-            Output = ActivationFunction(z);
+            Output = Activation.Sigmoid(z);
         }
-
-        private double ActivationFunction(double z) => 1d / (1 + Math.Exp(-z));
     }
 }
