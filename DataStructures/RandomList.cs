@@ -6,22 +6,20 @@ using System.Linq;
 
 namespace DataStructures
 {
-    public class RandomHashSet<T> : IEnumerable<T>
+    public class RandomList<T> : IEnumerable<T>
     {
-        private HashSet<T> Set { get; set; }
         public List<T> Data { get; }
 
-        public RandomHashSet()
+        public RandomList()
         {
-            Set = new HashSet<T>();
             Data = new List<T>();
         }
 
-        public bool Contains(T obj) => Set.Contains(obj);
+        public bool Contains(T obj) => Data.Contains(obj);
 
         public T RandomElement()
         {
-            if (Set.Any())
+            if (Data.Any())
             {
                 int i = (int)(ThreadSafeRandom.Random() * Count);
                 return Data[i];
@@ -32,9 +30,8 @@ namespace DataStructures
 
         public void Add(T obj)
         {
-            if (!Set.Contains(obj))
+            if (!Data.Contains(obj))
             {
-                Set.Add(obj);
                 Data.Add(obj);
             }
         }
@@ -49,31 +46,26 @@ namespace DataStructures
                 if (gene.InnovationNumber < innovationNb)
                 {
                     Data.Insert(i, g);
-                    Set.Add(g);
                     return;
                 }
             }
 
             Data.Add(g);
-            Set.Add(g);
         }
 
         public void Clear()
         {
-            Set.Clear();
             Data.Clear();
         }
 
         public void Remove(int index)
         {
             if (index < 0 || index >= Count) return;
-            Set.Remove(Data[index]);
             Data.Remove(Data[index]);
         }
 
         public void Remove(T obj)
         {
-            Set.Remove(obj);
             Data.Remove(obj);
         }
 

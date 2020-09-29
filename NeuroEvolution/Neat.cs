@@ -10,16 +10,16 @@ namespace NeuroEvolution
     public class Neat : INeat
     {
         private Dictionary<ConnectionGene, ConnectionGene> AllConnections { get; set; }
-        private RandomHashSet<NodeGene> AllNodes { get; set; }
-        private RandomHashSet<Client> AllClients { get; set; }
-        private RandomHashSet<Species> AllSpecies { get; set; }
+        private RandomList<NodeGene> AllNodes { get; set; }
+        private RandomList<Client> AllClients { get; set; }
+        private RandomList<Species> AllSpecies { get; set; }
 
         public Neat()
         {
             AllConnections = new Dictionary<ConnectionGene, ConnectionGene>();
-            AllNodes = new RandomHashSet<NodeGene>();
-            AllClients = new RandomHashSet<Client>();
-            AllSpecies = new RandomHashSet<Species>();
+            AllNodes = new RandomList<NodeGene>();
+            AllClients = new RandomList<Client>();
+            AllSpecies = new RandomList<Species>();
 
             Reset();
         }
@@ -198,7 +198,7 @@ namespace NeuroEvolution
             }
         }
 
-        public RandomHashSet<Client> CheckEvolutionProcess()
+        public RandomList<Client> CheckEvolutionProcess()
         {
             Neat neat = new Neat();
 

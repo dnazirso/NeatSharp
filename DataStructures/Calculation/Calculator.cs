@@ -11,8 +11,8 @@ namespace DataStructures.Calculation
         readonly List<Node> OutputNodes = new List<Node>();
         public Calculator(IGenome genome)
         {
-            RandomHashSet<NodeGene> nodes = genome.Nodes;
-            RandomHashSet<ConnectionGene> connections = genome.Connections;
+            RandomList<NodeGene> nodes = genome.Nodes;
+            RandomList<ConnectionGene> connections = genome.Connections;
 
             Dictionary<int, Node> nodeDictionnary = new Dictionary<int, Node>();
 

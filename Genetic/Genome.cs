@@ -6,14 +6,14 @@ namespace Genetic
 {
     public class Genome : IGenome
     {
-        public RandomHashSet<ConnectionGene> Connections { get; }
-        public RandomHashSet<NodeGene> Nodes { get; }
+        public RandomList<ConnectionGene> Connections { get; }
+        public RandomList<NodeGene> Nodes { get; }
         public INeat Neat { get; }
 
         public Genome(INeat Neat)
         {
-            Connections = new RandomHashSet<ConnectionGene>();
-            Nodes = new RandomHashSet<NodeGene>();
+            Connections = new RandomList<ConnectionGene>();
+            Nodes = new RandomList<NodeGene>();
 
             this.Neat = Neat;
         }

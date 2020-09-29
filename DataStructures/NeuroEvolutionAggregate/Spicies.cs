@@ -5,13 +5,13 @@ namespace DataStructures.NeuroEvolutionAggregate
 {
     public class Species
     {
-        public RandomHashSet<Client> Clients { get; }
+        public RandomList<Client> Clients { get; }
         public Client Representative { get; private set; }
         public double Score { get; private set; }
 
         public Species(Client Representative)
         {
-            Clients = new RandomHashSet<Client>();
+            Clients = new RandomList<Client>();
             this.Representative = Representative;
             this.Representative.Species = this;
             Clients.Add(Representative);
