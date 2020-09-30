@@ -1,4 +1,6 @@
-﻿using DataStructures.GeneticAggregate;
+﻿using DataStructures;
+using DataStructures.GeneticAggregate;
+using DataStructures.NeuroEvolutionAggregate;
 using NeuroEvolution;
 using Prompt.Abstraction;
 using Prompt.Menu;
@@ -12,7 +14,10 @@ namespace Prompt
     /// </summary>
     public partial class MainWindow : Window, IRefresher
     {
-        readonly IGenome genome;
+        public int GenomeIndex { get; set; } = 0;
+
+        readonly RandomList<Client> clients;
+
         readonly Neat neat;
 
         public MainWindow()
@@ -21,9 +26,9 @@ namespace Prompt
 
             neat = new Neat();
 
-            genome = neat.EmptyGenome();
+            clients = neat.CheckEvolutionProcess();
 
-            ButtonStack buttonStack = new ButtonStack(genome, this);
+            ButtonStack buttonStack = new ButtonStack(clients[GenomeIndex].Genome, this);
 
             mainWindow.Children.Add(buttonStack);
             Refresh();
@@ -33,14 +38,14 @@ namespace Prompt
         {
             board.Children.Clear();
 
-            for (int i = 0; i < genome.Connections.Count; i++)
+            for (int i = 0; i < clients[GenomeIndex].Genome.Connections.Count; i++)
             {
-                board.Children.Add(new Connection(genome.Connections[i], Width - 50, Height - 100));
+                board.Children.Add(new Connection(clients[GenomeIndex].Genome.Connections[i], Width - 50, Height - 100));
             }
 
-            for (int i = 0; i < genome.Nodes.Count; i++)
+            for (int i = 0; i < clients[GenomeIndex].Genome.Nodes.Count; i++)
             {
-                board.Children.Add(new Node(genome.Nodes[i], Width - 50, Height - 100));
+                board.Children.Add(new Node(clients[GenomeIndex].Genome.Nodes[i], Width - 50, Height - 100));
             }
         }
     }

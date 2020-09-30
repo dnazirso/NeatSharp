@@ -217,8 +217,8 @@ namespace NeuroEvolution
                     c.Score = c.Calculate(inputs)[0];
                 }
                 neat.Evolve();
-                ////neat.TraceClients();
-                //neat.TraceSpecies();
+                //neat.TraceClients();
+                neat.TraceSpecies();
             }
 
             return neat.AllClients;

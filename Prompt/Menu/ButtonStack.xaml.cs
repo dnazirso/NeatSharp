@@ -1,4 +1,5 @@
 ﻿using DataStructures.GeneticAggregate;
+using NeuroEvolution;
 using Prompt.Abstraction;
 using System.Windows;
 using System.Windows.Controls;
@@ -71,6 +72,20 @@ namespace Prompt.Menu
         private void On_Off(object sender, RoutedEventArgs e)
         {
             genome.MutateToggleLink();
+            refresher.Refresh();
+        }
+
+        private void Get_Prev(object sender, RoutedEventArgs e)
+        {
+            refresher.GenomeIndex--;
+            if (refresher.GenomeIndex < 0) refresher.GenomeIndex = 0;
+            refresher.Refresh();
+        }
+
+        private void Get_Next(object sender, RoutedEventArgs e)
+        {
+            refresher.GenomeIndex++;
+            if (refresher.GenomeIndex > Constants.MaxClients - 1) refresher.GenomeIndex = Constants.MaxClients - 1;
             refresher.Refresh();
         }
     }

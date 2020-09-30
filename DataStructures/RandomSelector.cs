@@ -31,6 +31,11 @@ namespace DataStructures
                 }
             }
 
+            if (elements.Count == 1)
+            {
+                return elements[0];
+            }
+
             return default;
         }
 
