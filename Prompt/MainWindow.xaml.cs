@@ -33,14 +33,14 @@ namespace Prompt
         {
             board.Children.Clear();
 
-            for (int i = 0; i < genome.Nodes.Count; i++)
-            {
-                board.Children.Add(new Node(genome.Nodes[i], Width - 50, Height - 100));
-            }
-
             for (int i = 0; i < genome.Connections.Count; i++)
             {
                 board.Children.Add(new Connection(genome.Connections[i], Width - 50, Height - 100));
+            }
+
+            for (int i = 0; i < genome.Nodes.Count; i++)
+            {
+                board.Children.Add(new Node(genome.Nodes[i], Width - 50, Height - 100));
             }
         }
     }
