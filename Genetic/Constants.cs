@@ -10,5 +10,6 @@
         public static readonly double PROBABILITY_MUTATE_WEIGHT_SHIFT = 0.02;
         public static readonly double PROBABILITY_MUTATE_WEIGHT_RANDOM = 0.02;
         public static readonly double PROBABILITY_MUTATE_TOGGLE_LINK = 0.02;
+        public static readonly double PROBABILITY_MUTATE_ACTIVATION_RANDOM = 0.02;
     }
 }

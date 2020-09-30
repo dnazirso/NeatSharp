@@ -1,4 +1,5 @@
 ﻿using DataStructures;
+using DataStructures.Calculation.ActivationStrategy;
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 
@@ -25,6 +26,7 @@ namespace Genetic
             if (Constants.PROBABILITY_MUTATE_WEIGHT_RANDOM > ThreadSafeRandom.Random()) MutateWeightRandom();
             if (Constants.PROBABILITY_MUTATE_WEIGHT_SHIFT > ThreadSafeRandom.Random()) MutateWeightShift();
             if (Constants.PROBABILITY_MUTATE_TOGGLE_LINK > ThreadSafeRandom.Random()) MutateToggleLink();
+            if (Constants.PROBABILITY_MUTATE_ACTIVATION_RANDOM > ThreadSafeRandom.Random()) MutateActivationRandom();
         }
 
         public void MutateLink()
@@ -71,9 +73,12 @@ namespace Genetic
             NodeGene middle;
             if (replaceIndex == 0)
             {
+                ActivationEnumeration a = ActivationEnumeration.Random();
                 middle = Neat.CreateNode();
                 middle.X = (from.X + to.X) / 2;
                 middle.Y = ((from.Y + to.Y) / 2) + (ThreadSafeRandom.NormalRand(0, 0.02f) / 2);
+                middle.Activation = a.Activation;
+                middle.ActivationName = a.Name;
                 Neat.SetReplaceIndex(from, to, middle.InnovationNumber);
             }
             else
@@ -119,6 +124,17 @@ namespace Genetic
             if (connection != null)
             {
                 connection.Enabled = !connection.Enabled;
+            }
+        }
+
+        public void MutateActivationRandom()
+        {
+            NodeGene node = Nodes.RandomElement();
+            if (node?.X > 0.1)
+            {
+                ActivationEnumeration a = ActivationEnumeration.Random();
+                node.Activation = a.Activation;
+                node.ActivationName = a.Name;
             }
         }
     }

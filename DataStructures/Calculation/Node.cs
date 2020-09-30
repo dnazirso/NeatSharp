@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataStructures.Calculation.ActivationStrategy;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 
@@ -9,10 +10,12 @@ namespace DataStructures.Calculation
         public double X { get; set; }
         public double Output { get; set; }
         public List<Connection> Connections { get; set; } = new List<Connection>();
+        public IActivationFunction Activation { get; set; }
 
-        public Node(double X)
+        public Node(double X, IActivationFunction Activation)
         {
             this.X = X;
+            this.Activation = Activation;
         }
 
         public int CompareTo([AllowNull] Node other)
@@ -34,7 +37,7 @@ namespace DataStructures.Calculation
                 }
             }
 
-            Output = Activation.Sigmoid(z);
+            Output = Activation.Activate(z);
         }
     }
 }

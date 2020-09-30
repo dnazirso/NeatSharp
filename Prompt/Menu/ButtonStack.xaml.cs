@@ -45,6 +45,12 @@ namespace Prompt.Menu
             refresher.Refresh();
         }
 
+        private void Mutate_Activation(object sender, RoutedEventArgs e)
+        {
+            genome.MutateActivationRandom();
+            refresher.Refresh();
+        }
+
         private void Calculate(object sender, RoutedEventArgs e)
         {
             //genome.GenerateCalculator();

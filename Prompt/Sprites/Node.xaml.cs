@@ -18,6 +18,7 @@ namespace Prompt.Sprites
 
             SetValue(Canvas.LeftProperty, gene.X * width);
             SetValue(Canvas.TopProperty, gene.Y * height);
+            node.Fill = NodeColors.SetColor(gene.ActivationName);
         }
     }
 }

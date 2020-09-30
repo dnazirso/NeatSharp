@@ -1,4 +1,5 @@
 ﻿using DataStructures;
+using DataStructures.Calculation.ActivationStrategy;
 using DataStructures.GeneticAggregate;
 using DataStructures.NeuroEvolutionAggregate;
 using Genetic;
@@ -54,6 +55,10 @@ namespace NeuroEvolution
                 NodeGene node = CreateNode();
                 node.X = 0.9; ;
                 node.Y = (i + 1) / (double)(Constants.OutputSize + 1);
+                
+                ActivationEnumeration a = ActivationEnumeration.Random();
+                node.Activation = a.Activation;
+                node.ActivationName = a.Name;
             }
 
             for (int i = 0; i < Constants.MaxClients; i++)

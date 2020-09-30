@@ -1,9 +1,13 @@
-﻿namespace DataStructures.GeneticAggregate
+﻿using DataStructures.Calculation.ActivationStrategy;
+
+namespace DataStructures.GeneticAggregate
 {
     public class NodeGene : Gene
     {
         public double X { get; set; }
         public double Y { get; set; }
+        public IActivationFunction Activation { get; set; }
+        public string ActivationName { get; set; }
 
         public NodeGene(int innovationNumber) : base(innovationNumber) { }
 

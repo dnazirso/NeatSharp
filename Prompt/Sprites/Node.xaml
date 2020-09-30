@@ -6,6 +6,6 @@
              mc:Ignorable="d" 
              d:DesignHeight="20" d:DesignWidth="20">
     <Grid>
-        <Ellipse x:Name="node" Fill="Lime" HorizontalAlignment="Center" Width="20" Height="20" Stroke="White" StrokeThickness="0.5" VerticalAlignment="Center"/>
+        <Ellipse x:Name="node" Fill="White" HorizontalAlignment="Center" Width="20" Height="20" Stroke="White" StrokeThickness="0.5" VerticalAlignment="Center"/>
     </Grid>
 </UserControl>

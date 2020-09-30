@@ -14,5 +14,6 @@ namespace DataStructures.GeneticAggregate
         void MutateToggleLink();
         void MutateWeightRandom();
         void MutateWeightShift();
+        void MutateActivationRandom();
     }
 }

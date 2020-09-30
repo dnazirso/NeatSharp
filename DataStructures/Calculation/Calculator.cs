@@ -18,7 +18,7 @@ namespace DataStructures.Calculation
 
             foreach (NodeGene n in nodes)
             {
-                Node node = new Node(n.X);
+                Node node = new Node(n.X, n.Activation);
                 nodeDictionnary[n.InnovationNumber] = node;
 
                 if (n.X <= 0.1)
