@@ -30,12 +30,12 @@ namespace DataStructures
         /// <param name="mean">mean of the Gaussian curve (generaly 0)</param>
         /// <param name="scale">scale parameter of the normal distribution (generaly x²=1)</param>
         /// <returns>a normal random float</returns>
-        public static float NormalRand(float mean = 0, float scale = 1)
+        public static double NormalRand(double mean = 0, double scale = 1)
         {
-            float random1 = 1.0f - (float)ThisThreadsRandom.NextDouble();
-            float random2 = 1.0f - (float)ThisThreadsRandom.NextDouble();
+            double random1 = 1.0 - ThisThreadsRandom.NextDouble();
+            double random2 = 1.0 - ThisThreadsRandom.NextDouble();
 
-            return mean + scale * MathF.Sqrt(-2.0f * MathF.Log(random1)) * MathF.Sin(2.0f * MathF.PI * random2);
+            return mean + scale * Math.Sqrt(-2.0f * Math.Log(random1)) * Math.Sin(2.0f * Math.PI * random2);
         }
 
         /// <summary>
