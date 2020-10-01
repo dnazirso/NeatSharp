@@ -39,8 +39,8 @@ namespace DataStructures.Calculation
 
             foreach (ConnectionGene c in connections)
             {
-                Node from = nodeDictionnary[c.From.InnovationNumber];
-                Node to = nodeDictionnary[c.To.InnovationNumber];
+                Node from = nodeDictionnary[c.In.InnovationNumber];
+                Node to = nodeDictionnary[c.Out.InnovationNumber];
 
                 Connection connection = new Connection(from, to)
                 {

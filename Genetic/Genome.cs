@@ -51,7 +51,7 @@ namespace Genetic
 
                 if (Connections.Contains(connection)) continue;
 
-                connection = Neat.GetConnection(connection.From, connection.To);
+                connection = Neat.GetConnection(connection.In, connection.Out);
                 connection.Weight += ThreadSafeRandom.NormalRand(0, 0.2f) * Constants.WEIGHT_SHIFT_STRENGTH;
 
                 Connections.AddSorted(connection);
@@ -65,8 +65,8 @@ namespace Genetic
             ConnectionGene connection = Connections.RandomElement();
             if (connection == null) return;
 
-            NodeGene from = connection.From;
-            NodeGene to = connection.To;
+            NodeGene from = connection.In;
+            NodeGene to = connection.Out;
 
             int replaceIndex = Neat.GetReplaceIndex(from, to);
 

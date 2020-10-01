@@ -12,7 +12,7 @@ namespace Prompt.Sprites
         public Connection(ConnectionGene gene, double width, double height)
         {
             InitializeComponent();
-            Place(gene.From, gene.To, width, height, gene.Enabled);
+            Place(gene.In, gene.Out, width, height, gene.Enabled);
 
             text.Text = gene.Weight.ToString();
         }

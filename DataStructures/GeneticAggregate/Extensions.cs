@@ -123,8 +123,8 @@ namespace DataStructures.GeneticAggregate
 
             foreach (ConnectionGene c in offSpringGenome.Connections)
             {
-                offSpringGenome.Nodes.Add(c.From);
-                offSpringGenome.Nodes.Add(c.To);
+                offSpringGenome.Nodes.Add(c.In);
+                offSpringGenome.Nodes.Add(c.Out);
             }
 
             return offSpringGenome;
@@ -132,7 +132,7 @@ namespace DataStructures.GeneticAggregate
 
         private static ConnectionGene GetConnection(this ConnectionGene connection)
         {
-            ConnectionGene gene = new ConnectionGene(connection.From, connection.To)
+            ConnectionGene gene = new ConnectionGene(connection.In, connection.Out)
             {
                 InnovationNumber = connection.InnovationNumber,
                 Weight = connection.Weight,

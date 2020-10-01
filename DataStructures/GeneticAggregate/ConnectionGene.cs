@@ -2,32 +2,32 @@
 {
     public class ConnectionGene : Gene
     {
-        public NodeGene From { get; set; }
-        public NodeGene To { get; set; }
+        public NodeGene In { get; set; }
+        public NodeGene Out { get; set; }
 
         public double Weight { get; set; }
         public bool Enabled { get; set; } = true;
 
         public int ReplaceIndex { get; set; }
 
-        public ConnectionGene(NodeGene From, NodeGene To)
+        public ConnectionGene(NodeGene In, NodeGene Out)
         {
-            this.From = From;
-            this.To = To;
+            this.In = In;
+            this.Out = Out;
         }
 
         public override bool Equals(object obj)
         {
             if (obj is ConnectionGene c)
             {
-                return From.Equals(c.From) && To.Equals(c.To);
+                return In.Equals(c.In) && Out.Equals(c.Out);
             }
             return false;
         }
 
         public override int GetHashCode()
         {
-            return From.InnovationNumber * Constants.MAX_NODES + To.InnovationNumber;
+            return In.InnovationNumber * Constants.MAX_NODES + Out.InnovationNumber;
         }
     }
 }
