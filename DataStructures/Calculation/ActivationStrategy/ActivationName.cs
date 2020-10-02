@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace DataStructures.Calculation.ActivationStrategy
+﻿namespace DataStructures.Calculation.ActivationStrategy
 {
+    /// <summary>
+    /// Activation name
+    /// </summary>
     public static class ActivationName
     {
         public const string Abs = "Abs";

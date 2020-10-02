@@ -2,6 +2,9 @@
 
 namespace DataStructures.GeneticAggregate
 {
+    /// <summary>
+    /// Represent a node of the topology
+    /// </summary>
     public class NodeGene : Gene
     {
         /// <summary>

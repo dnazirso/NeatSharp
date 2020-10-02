@@ -1,17 +1,32 @@
 ﻿namespace DataStructures.Calculation
 {
+    /// <summary>
+    /// Represent an axon within a neural network
+    /// </summary>
     public class Connection
     {
-        public Node From { get; set; }
-        public Node To { get; set; }
+        /// <summary>
+        /// Node that provides informations
+        /// </summary>
+        public Node In { get; set; }
 
+        /// <summary>
+        /// Weight of an information
+        /// </summary>
         public double Weight { get; set; }
+
+        /// <summary>
+        /// Indicate whether of not a <see cref="Connection"/> is used
+        /// </summary>
         public bool Enabled { get; set; } = true;
 
-        public Connection(Node From, Node To)
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="In">Information provider</param>
+        public Connection(Node In)
         {
-            this.From = From;
-            this.To = To;
+            this.In = In;
         }
     }
 }

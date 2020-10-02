@@ -1,5 +1,8 @@
 ﻿namespace DataStructures.GeneticAggregate
 {
+    /// <summary>
+    /// Represents a link between two <see cref="NodeGene"/>
+    /// </summary>
     public class ConnectionGene : Gene
     {
         /// <summary>
