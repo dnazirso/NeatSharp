@@ -78,10 +78,29 @@ namespace Genetic
                 connection = Neat.GetConnection(connection.In, connection.Out);
                 connection.Weight += ThreadSafeRandom.NormalRand(0, 0.2f) * Constants.WEIGHT_SHIFT_STRENGTH;
 
-                Connections.AddSorted(connection);
+                AddSorted(connection);
 
                 return;
             }
+        }
+
+        /// <summary>
+        /// Add an sort Genes per innovation number
+        /// </summary>
+        /// <param name="gene">a <see cref="ConnectionGene"/></param>
+        private void AddSorted(ConnectionGene gene)
+        {
+            for (int i = 0; i < Connections.Count; i++)
+            {
+                int innovationNb = Connections[i].InnovationNumber;
+                if (gene.InnovationNumber < innovationNb)
+                {
+                    Connections.Insert(i, gene);
+                    return;
+                }
+            }
+
+            Connections.Add(gene);
         }
 
         /// <summary>

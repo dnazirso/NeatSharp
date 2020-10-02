@@ -2,6 +2,10 @@
 
 namespace DataStructures
 {
+    /// <summary>
+    /// Represents a random selector for a list of elements
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class RandomSelector<T>
     {
         private readonly List<T> elements = new List<T>();
@@ -9,6 +13,11 @@ namespace DataStructures
 
         private double totalScore = 0;
 
+        /// <summary>
+        /// Add an element with its score
+        /// </summary>
+        /// <param name="element"></param>
+        /// <param name="score"></param>
         public void Add(T element, double score)
         {
             elements.Add(element);
@@ -16,6 +25,10 @@ namespace DataStructures
             totalScore += score;
         }
 
+        /// <summary>
+        /// Select a random element
+        /// </summary>
+        /// <returns></returns>
         public T Random()
         {
             double v = ThreadSafeRandom.Random() * totalScore;
@@ -37,13 +50,6 @@ namespace DataStructures
             }
 
             return default;
-        }
-
-        public void Reset()
-        {
-            elements.Clear();
-            scores.Clear();
-            totalScore = 0;
         }
     }
 }
