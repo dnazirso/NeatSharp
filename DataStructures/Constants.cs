@@ -2,6 +2,9 @@
 
 namespace DataStructures
 {
+    /// <summary>
+    /// Constants involved in crossovers
+    /// </summary>
     public sealed class Constants
     {
         /// <summary>
