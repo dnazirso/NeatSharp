@@ -34,7 +34,7 @@ namespace NeuroEvolution
         private RandomList<Species> AllSpecies { get; set; }
 
         /// <summary>
-        /// constructor
+        /// Constructor
         /// </summary>
         public Neat()
         {
@@ -157,9 +157,9 @@ namespace NeuroEvolution
         }
 
         /// <summary>
-        /// Find or Create a <see cref="NodeGene"/> by id (here, the index within the <see cref="NodeGene"/> list
+        /// Find or Create a <see cref="NodeGene"/> by id (here, the index within the <see cref="NodeGene"/> list)
         /// </summary>
-        /// <param name="id"></param>
+        /// <param name="id">the index within the <see cref="NodeGene"/> list</param>
         /// <returns>a <see cref="NodeGene"/></returns>
         public NodeGene GetNode(int id)
         {
