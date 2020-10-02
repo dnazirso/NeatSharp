@@ -3,8 +3,17 @@ using System;
 
 namespace DataStructures.GeneticAggregate
 {
+    /// <summary>
+    /// <see cref="IGenome"/> extension
+    /// </summary>
     public static class Extensions
     {
+        /// <summary>
+        /// Compute the distance between two genetical informations as <see cref="IGenome"/>
+        /// </summary>
+        /// <param name="genome1"></param>
+        /// <param name="genome2"></param>
+        /// <returns></returns>
         public static double Distance(this IGenome genome1, IGenome genome2)
         {
             int highestInnovationNb1 = 0;
@@ -75,6 +84,12 @@ namespace DataStructures.GeneticAggregate
             return ((Constants.C1 * nbExcess + Constants.C2 * nbDisjoint) / nbGeneInTheLargerGenome) + Constants.C3 * meanWdiff;
         }
 
+        /// <summary>
+        /// Create an offspring from two genetical informations given
+        /// </summary>
+        /// <param name="parent1">Genetical informations of the first parent</param>
+        /// <param name="parent2">Genetical informations of the second parent</param>
+        /// <returns>Genetical informations of the offspring freshly created</returns>
         public static IGenome CrossOver(this IGenome parent1, IGenome parent2)
         {
             INeat neat = parent1.Neat;
@@ -130,6 +145,11 @@ namespace DataStructures.GeneticAggregate
             return offSpringGenome;
         }
 
+        /// <summary>
+        /// Clone a <see cref="ConnectionGene"/>
+        /// </summary>
+        /// <param name="connection">The <see cref="ConnectionGene"/> to clone</param>
+        /// <returns>a cloned <see cref="ConnectionGene"/></returns>
         private static ConnectionGene GetConnection(this ConnectionGene connection)
         {
             ConnectionGene gene = new ConnectionGene(connection.In, connection.Out)

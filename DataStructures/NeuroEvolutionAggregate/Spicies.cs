@@ -5,10 +5,25 @@ namespace DataStructures.NeuroEvolutionAggregate
 {
     public class Species
     {
+        /// <summary>
+        /// List of <see cref="Client"/>s of the same species
+        /// </summary>
         public RandomList<Client> Clients { get; }
+
+        /// <summary>
+        /// Representative of a <see cref="Species"/>
+        /// </summary>
         public Client Representative { get; private set; }
+
+        /// <summary>
+        /// Score of a <see cref="Species"/>
+        /// </summary>
         public double Score { get; private set; }
 
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="Representative"><see cref="Client"/> choosen as representative of a <see cref="Species"/></param>
         public Species(Client Representative)
         {
             Clients = new RandomList<Client>();
@@ -17,6 +32,11 @@ namespace DataStructures.NeuroEvolutionAggregate
             Clients.Add(Representative);
         }
 
+        /// <summary>
+        /// Affect a <see cref="Client"/> to a <see cref="Species"/> regarding its genetical distance
+        /// </summary>
+        /// <param name="client">a <see cref="Client"/></param>
+        /// <returns>a boolean that confirm </returns>
         public bool Put(Client client)
         {
             if (client.Distance(Representative) < Constants.CP)
@@ -28,12 +48,19 @@ namespace DataStructures.NeuroEvolutionAggregate
             return false;
         }
 
+        /// <summary>
+        /// Force a <see cref="Client"/> affectation to a <see cref="Species"/>
+        /// </summary>
+        /// <param name="client">a <see cref="Client"/></param>
         public void ForcePut(Client client)
         {
             client.Species = this;
             Clients.Add(client);
         }
 
+        /// <summary>
+        /// Annihilate a <see cref="Species"/>
+        /// </summary>
         public void Extinguish()
         {
             foreach (Client c in Clients)
@@ -42,11 +69,17 @@ namespace DataStructures.NeuroEvolutionAggregate
             }
         }
 
+        /// <summary>
+        /// Evaluate Fitness of a <see cref="Species"/> through all its <see cref="Client"/>
+        /// </summary>
         public void EvaluateScore()
         {
             Score = Clients.Sum(d => d.Score) / Clients.Count;
         }
 
+        /// <summary>
+        /// Clear a <see cref="Species"/> from its <see cref="Client"/>s leaving one representative
+        /// </summary>
         public void Reset()
         {
             Representative = Clients.RandomElement();
@@ -61,6 +94,10 @@ namespace DataStructures.NeuroEvolutionAggregate
             Score = 0;
         }
 
+        /// <summary>
+        /// Regulate the number of <see cref="Client"/> within a <see cref="Species"/>
+        /// </summary>
+        /// <param name="percentage">a choosen rate of client to obtain</param>
         public void Kill(double percentage)
         {
             Clients.Sort((Client c1, Client c2) => c1.CompareTo(c2));
@@ -73,6 +110,10 @@ namespace DataStructures.NeuroEvolutionAggregate
             }
         }
 
+        /// <summary>
+        /// Manage breeding of <see cref="Client"/>s within a <see cref="Species"/>
+        /// </summary>
+        /// <returns>an offspring genetic information as <see cref="IGenome"/></returns>
         public IGenome Breed()
         {
             Client c1 = Clients.RandomElement();
@@ -82,6 +123,9 @@ namespace DataStructures.NeuroEvolutionAggregate
             return c2.Genome.CrossOver(c1.Genome);
         }
 
+        /// <summary>
+        /// Number of <see cref="Client"/>s of the same <see cref="Species"/>
+        /// </summary>
         public int Count => Clients.Count;
     }
 }

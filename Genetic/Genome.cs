@@ -6,23 +6,17 @@ using DataStructures.NeuroEvolutionAggregate;
 namespace Genetic
 {
     /// <summary>
-    /// Keeps genetic informations
+    /// Store genetic informations
     /// </summary>
     public class Genome : IGenome
     {
-        /// <summary>
-        /// <see cref="ConnectionGene"/>s of this <see cref="Genome"/>
-        /// </summary>
+        ///<inheritdoc/>
         public RandomList<ConnectionGene> Connections { get; }
 
-        /// <summary>
-        /// <see cref="NodeGene"/>s of this <see cref="Genome"/>
-        /// </summary>
+        ///<inheritdoc/>
         public RandomList<NodeGene> Nodes { get; }
 
-        /// <summary>
-        /// Aknowledge and manage existing <see cref="Gene"/>s through all species
-        /// </summary>
+        ///<inheritdoc/>
         public INeat Neat { get; }
 
         /// <summary>
@@ -37,9 +31,7 @@ namespace Genetic
             this.Neat = Neat;
         }
 
-        /// <summary>
-        /// Manage mutation regarding their probabilities
-        /// </summary>
+        ///<inheritdoc/>
         public void Mutate()
         {
             if (Constants.PROBABILITY_MUTATE_LINK > ThreadSafeRandom.Random()) MutateLink();
@@ -50,9 +42,7 @@ namespace Genetic
             if (Constants.PROBABILITY_MUTATE_ACTIVATION_RANDOM > ThreadSafeRandom.Random()) MutateActivationRandom();
         }
 
-        /// <summary>
-        /// Add a <see cref="ConnectionGene"/> between two existing <see cref="NodeGene"/>s
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateLink()
         {
             for (int i = 0; i < 100; i++)
@@ -103,9 +93,7 @@ namespace Genetic
             Connections.Add(gene);
         }
 
-        /// <summary>
-        /// Add a <see cref="NodeGene"/> on an existing <see cref="ConnectionGene"/>
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateNode()
         {
             ConnectionGene connection = Connections.RandomElement();
@@ -146,9 +134,7 @@ namespace Genetic
             Nodes.Add(middle);
         }
 
-        /// <summary>
-        /// Randomly shift the weight of a random <see cref="ConnectionGene"/>
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateWeightShift()
         {
             ConnectionGene connection = Connections.RandomElement();
@@ -158,9 +144,7 @@ namespace Genetic
             }
         }
 
-        /// <summary>
-        /// Randomly Change the weight of a random <see cref="ConnectionGene"/>
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateWeightRandom()
         {
             ConnectionGene connection = Connections.RandomElement();
@@ -170,9 +154,7 @@ namespace Genetic
             }
         }
 
-        /// <summary>
-        /// Activate or deactivate a random <see cref="ConnectionGene"/>
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateToggleLink()
         {
             ConnectionGene connection = Connections.RandomElement();
@@ -182,9 +164,7 @@ namespace Genetic
             }
         }
 
-        /// <summary>
-        /// Change the activation function of a random <see cref="NodeGene"/>
-        /// </summary>
+        ///<inheritdoc/>
         public void MutateActivationRandom()
         {
             NodeGene node = Nodes.RandomElement();

@@ -46,10 +46,7 @@ namespace NeuroEvolution
             Reset();
         }
 
-        /// <summary>
-        /// Create a <see cref="Genome"/> as starter for a <see cref="Client"/>
-        /// </summary>
-        /// <returns></returns>
+        ///<inheritdoc/>
         public IGenome EmptyGenome()
         {
             IGenome g = new Genome(this);
@@ -83,7 +80,7 @@ namespace NeuroEvolution
                 NodeGene node = CreateNode();
                 node.X = 0.9; ;
                 node.Y = (i + 1) / (double)(Constants.OutputSize + 1);
-                
+
                 ActivationEnumeration a = ActivationEnumeration.Random();
                 node.Activation = a.Activation;
                 node.ActivationName = a.Name;
@@ -96,12 +93,7 @@ namespace NeuroEvolution
             }
         }
 
-        /// <summary>
-        /// Find of create a <see cref="ConnectionGene"/>
-        /// </summary>
-        /// <param name="In">Input <see cref="NodeGene"/> of this connection</param>
-        /// <param name="Out">Output <see cref="NodeGene"/> of this connection</param>
-        /// <returns></returns>
+        ///<inheritdoc/>
         public ConnectionGene GetConnection(NodeGene In, NodeGene Out)
         {
             ConnectionGene connection = new ConnectionGene(In, Out);
@@ -119,24 +111,13 @@ namespace NeuroEvolution
             return connection;
         }
 
-        /// <summary>
-        /// Set a replace index as a marker between two <see cref="NodeGene"/>.
-        /// Indicates if a <see cref="ConnectionGene"/> as been replaced
-        /// </summary>
-        /// <param name="node1">first <see cref="NodeGene"/></param>
-        /// <param name="node2">second <see cref="NodeGene"/></param>
-        /// <param name="index">Intially an innovation number</param>
+        ///<inheritdoc/>
         public void SetReplaceIndex(NodeGene node1, NodeGene node2, int index)
         {
             AllConnections[new ConnectionGene(node1, node2)].ReplaceIndex = index;
         }
 
-        /// <summary>
-        /// Get a replace index if existing between two <see cref="NodeGene"/>
-        /// </summary>
-        /// <param name="node1">first <see cref="NodeGene"/></param>
-        /// <param name="node2">second <see cref="NodeGene"/></param>
-        /// <returns>A replace index</returns>
+        ///<inheritdoc/>
         public int GetReplaceIndex(NodeGene node1, NodeGene node2)
         {
             ConnectionGene connection = new ConnectionGene(node1, node2);
@@ -145,10 +126,7 @@ namespace NeuroEvolution
             return data.ReplaceIndex;
         }
 
-        /// <summary>
-        /// Create a <see cref="NodeGene"/> and and store it for future use
-        /// </summary>
-        /// <returns>a <see cref="NodeGene"/></returns>
+        ///<inheritdoc/>
         public NodeGene CreateNode()
         {
             NodeGene node = new NodeGene(AllNodes.Count + 1);
@@ -156,11 +134,7 @@ namespace NeuroEvolution
             return node;
         }
 
-        /// <summary>
-        /// Find or Create a <see cref="NodeGene"/> by id (here, the index within the <see cref="NodeGene"/> list)
-        /// </summary>
-        /// <param name="id">the index within the <see cref="NodeGene"/> list</param>
-        /// <returns>a <see cref="NodeGene"/></returns>
+        ///<inheritdoc/>
         public NodeGene GetNode(int id)
         {
             if (id <= AllNodes.Count)
